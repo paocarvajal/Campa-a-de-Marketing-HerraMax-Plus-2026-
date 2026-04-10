@@ -92,8 +92,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .prompt-text{font-family:'Courier New',monospace;font-size:12px;color:#C8C5BE;line-height:1.7;white-space:pre-wrap;word-break:break-word}
 .prompt-copy{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#555;background:#111;border:1px solid #222;border-radius:4px;padding:5px 12px;cursor:pointer;font-family:'Barlow',sans-serif;transition:all 0.15s}
 .prompt-copy:hover{color:var(--orange);border-color:var(--orange-dim)}
-
-/* ── PUBLICACIONES ── */
 .pub-section{margin-top:2rem}
 .pub-section-header{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.06em;margin-bottom:1.25rem;display:flex;align-items:center;gap:12px}
 .pub-section-header::after{content:'';flex:1;height:1px;background:var(--line)}
@@ -105,7 +103,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .pub-week{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:var(--orange);min-width:28px}
 .pub-title{font-size:13px;font-weight:600;flex:1;line-height:1.35}
 .tipo-badge{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;padding:3px 10px;border-radius:4px;font-weight:600;flex-shrink:0}
-.tipo-marca    {background:rgba(224,123,10,0.15);color:var(--orange-glow);border:1px solid rgba(224,123,10,0.25)}
+.tipo-marca{background:rgba(224,123,10,0.15);color:var(--orange-glow);border:1px solid rgba(224,123,10,0.25)}
 .tipo-conversion{background:rgba(226,75,74,0.12);color:#F09595;border:1px solid rgba(226,75,74,0.2)}
 .tipo-educativo{background:rgba(55,138,221,0.12);color:#85B7EB;border:1px solid rgba(55,138,221,0.2)}
 .tipo-awareness{background:rgba(99,153,34,0.12);color:#97C459;border:1px solid rgba(99,153,34,0.2)}
@@ -121,14 +119,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .plat-panel{display:none}
 .plat-panel.visible{display:block;animation:fadeUp 0.2s ease}
 .hash-row{margin-top:8px;font-size:12px;color:var(--orange-dim);line-height:1.8}
-
 .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.tool-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rl);padding:1.25rem;transition:border-color 0.2s}
-.tool-card:hover{border-color:var(--orange-dim)}
-.tool-cat{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:10px}
-.tool-name{font-size:16px;font-weight:600;margin-bottom:4px}
+.tool-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--rl);
+  padding:1.25rem;
+  transition:border-color 0.2s,transform 0.2s;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.tool-card:hover{border-color:var(--orange-dim);transform:translateY(-2px)}
+.tool-cat{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:2px}
+.tool-name{font-size:16px;font-weight:600;margin-bottom:2px}
 .tool-use{font-size:12px;color:var(--t2);line-height:1.5}
-.tool-badge{display:inline-block;margin-top:10px;font-size:10px;padding:3px 8px;border-radius:4px;background:rgba(224,123,10,0.12);color:var(--orange-glow);text-transform:uppercase;letter-spacing:0.08em}
+.tool-badge{display:inline-block;margin-top:6px;font-size:10px;padding:3px 8px;border-radius:4px;background:rgba(224,123,10,0.12);color:var(--orange-glow);text-transform:uppercase;letter-spacing:0.08em;align-self:flex-start}
+.tool-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tool-link-btn,.tool-copy-btn{
+  appearance:none;border:none;text-decoration:none;cursor:pointer;font-family:'Barlow',sans-serif;
+  font-size:10px;text-transform:uppercase;letter-spacing:0.1em;border-radius:4px;padding:8px 10px;transition:all 0.18s;
+}
+.tool-link-btn{background:rgba(224,123,10,0.12);color:var(--orange-glow);border:1px solid rgba(224,123,10,0.25)}
+.tool-link-btn:hover{background:rgba(224,123,10,0.18);border-color:rgba(224,123,10,0.45)}
+.tool-copy-btn{background:var(--s2);color:var(--t2);border:1px solid var(--line2)}
+.tool-copy-btn:hover{color:var(--t1);border-color:var(--orange-dim)}
 .workflow{display:flex;flex-wrap:wrap}
 .wf-step{flex:1;min-width:140px;background:var(--surface);padding:1.25rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
 .wf-step:first-child{border-left:1px solid var(--line);border-radius:var(--rl) 0 0 var(--rl)}
@@ -215,16 +230,9 @@ footer{padding:3rem 2.5rem;border-top:1px solid var(--line);display:flex;justify
   <div class="section-header">
     <span class="section-num">03</span>
     <h2 class="section-title">Stack de IA Recomendado</h2>
-    <p class="section-desc">Las herramientas correctas para cada etapa de producción.</p>
+    <p class="section-desc" id="toolsDesc">Cargando herramientas desde Firebase...</p>
   </div>
-  <div class="tools-grid">
-    <div class="tool-card"><div class="tool-cat">Estrategia &amp; Copy</div><div class="tool-name">Claude + ChatGPT-4o</div><div class="tool-use">Calendarios editoriales, copy por plataforma y brief de campaña.</div><span class="tool-badge">Cerebro</span></div>
-    <div class="tool-card"><div class="tool-cat">Imagen fotorrealista</div><div class="tool-name">Midjourney v6.1</div><div class="tool-use">Calidad fotorrealista. Manos naturales con --style raw.</div><span class="tool-badge">Recomendado</span></div>
-    <div class="tool-card"><div class="tool-cat">Manos perfectas</div><div class="tool-name">Flux Pro 1.1</div><div class="tool-use">Excelente para manos y dedos realistas. Vía Replicate o Fal.ai.</div><span class="tool-badge">Manos</span></div>
-    <div class="tool-card"><div class="tool-cat">Logo &amp; composición</div><div class="tool-name">Adobe Firefly</div><div class="tool-use">Insertar el logo HerraMax en calidad original sobre imágenes IA.</div><span class="tool-badge">Logo</span></div>
-    <div class="tool-card"><div class="tool-cat">Video &amp; Reels</div><div class="tool-name">Runway Gen-3</div><div class="tool-use">Calidad cinematográfica para Reels e Instagram.</div><span class="tool-badge">Video</span></div>
-    <div class="tool-card"><div class="tool-cat">Texto en imagen</div><div class="tool-name">Ideogram 2.0</div><div class="tool-use">El mejor para imágenes con texto integrado. Memes y anuncios.</div><span class="tool-badge">Texto</span></div>
-  </div>
+  <div class="tools-grid" id="toolsGrid"></div>
 </section>
 
 <section class="section reveal" id="workflow">
@@ -262,8 +270,76 @@ const tipoClass={marca:"tipo-marca",conversion:"tipo-conversion",educativo:"tipo
 const tipoLabel={marca:"Marca",conversion:"Conversión",educativo:"Educativo",awareness:"Awareness"};
 const platIcon={instagram:"📷",facebook:"💬",tiktok:"🎵"};
 
+const defaultToolMeta={
+  estrategia:{cat:"Estrategia & Copy",use:"Calendarios editoriales, copy por plataforma y brief de campaña."},
+  midjourney:{cat:"Imagen fotorrealista",use:"Calidad fotorrealista. Manos naturales con --style raw."},
+  flux:{cat:"Manos perfectas",use:"Excelente para manos y dedos realistas. Vía Replicate o Fal.ai."},
+  firefly:{cat:"Logo & composición",use:"Insertar el logo HerraMax en calidad original sobre imágenes IA."},
+  runway:{cat:"Video & Reels",use:"Calidad cinematográfica para Reels e Instagram."},
+  ideogram:{cat:"Texto en imagen",use:"El mejor para imágenes con texto integrado. Memes y anuncios."}
+};
+
+const defaultTools={
+  estrategia:{
+    name:"Claude + ChatGPT-4o",
+    badge:"Cerebro",
+    primaryLabel:"Abrir Claude",
+    primaryUrl:"https://claude.ai",
+    secondaryLabel:"Abrir ChatGPT",
+    secondaryUrl:"https://chatgpt.com",
+    prompt:"Actúa como estratega senior de marketing para HerraMax Plus en México. Genera una campaña mensual con objetivo, concepto creativo, 3 ideas de contenido, copy por plataforma, CTA comercial y una recomendación visual alineada al oficio, humor relatable y orgullo mexicano."
+  },
+  midjourney:{
+    name:"Midjourney v6.1",
+    badge:"Recomendado",
+    primaryLabel:"Abrir herramienta",
+    primaryUrl:"https://www.midjourney.com",
+    secondaryLabel:"",
+    secondaryUrl:"",
+    prompt:"hyperrealistic mexican construction worker using professional tools, HerraMax Plus black and orange branding, realistic hands with 5 fingers, warm cinematic lighting, detailed textures, commercial photography, premium ad look, photorealistic --ar 4:5 --style raw --v 6.1"
+  },
+  flux:{
+    name:"Flux Pro 1.1",
+    badge:"Manos",
+    primaryLabel:"Abrir Fal",
+    primaryUrl:"https://fal.ai",
+    secondaryLabel:"Abrir Replicate",
+    secondaryUrl:"https://replicate.com",
+    prompt:"photorealistic mexican worker portrait, realistic hands and fingers, HerraMax Plus branding, natural pose, sharp facial detail, warm commercial lighting, premium ad photography, vertical 4:5 composition"
+  },
+  firefly:{
+    name:"Adobe Firefly",
+    badge:"Logo",
+    primaryLabel:"Abrir herramienta",
+    primaryUrl:"https://firefly.adobe.com",
+    secondaryLabel:"",
+    secondaryUrl:"",
+    prompt:"Integra el logo de HerraMax Plus de forma natural sobre la imagen final, respetando perspectiva, sombras, iluminación, textura del material y look premium publicitario."
+  },
+  runway:{
+    name:"Runway Gen-3",
+    badge:"Video",
+    primaryLabel:"Abrir herramienta",
+    primaryUrl:"https://runwayml.com",
+    secondaryLabel:"",
+    secondaryUrl:"",
+    prompt:"Create a short cinematic vertical social media ad for HerraMax Plus using a realistic construction or workshop scene, subtle camera movement, warm light, premium commercial feel, smooth motion and strong branded closing frame."
+  },
+  ideogram:{
+    name:"Ideogram 2.0",
+    badge:"Texto",
+    primaryLabel:"Abrir herramienta",
+    primaryUrl:"https://ideogram.ai",
+    secondaryLabel:"",
+    secondaryUrl:"",
+    prompt:"Diseña una imagen publicitaria vertical 4:5 para HerraMax Plus con texto perfectamente legible en español, branding negro y naranja, composición limpia, alto contraste, estilo premium y enfoque comercial."
+  }
+};
+
 function toast(m){const e=document.getElementById("toast");e.textContent=m;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2000)}
 function copyText(t){navigator.clipboard.writeText(t).then(()=>toast("¡Copiado!")).catch(()=>toast("Selecciona manualmente"))}
+function escHtml(str){return String(str??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function escJs(str){return String(str??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\n/g,"\\n").replace(/\r/g,"")}
 
 function togglePub(header){header.closest(".pub-card").classList.toggle("open")}
 
@@ -283,38 +359,73 @@ function renderPub(pub,idx,monthId){
   const plats=Object.keys(copy);
   const platTabsHtml=plats.map((p,i)=>`<button class="plat-tab${i===0?" active":""}" onclick="switchPlat(this,'${uid}','${p}')">${platIcon[p]||""} ${p}</button>`).join("");
   const platPanelsHtml=plats.map((p,i)=>{
-    const txt=(copy[p]||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-    return `<div class="plat-panel${i===0?" visible":""}" data-plat="${p}"><div class="copy-box"><button class="copy-btn" onclick="event.stopPropagation();copyText('${txt}')">Copiar</button>${copy[p]||""}</div></div>`;
+    const txt=escJs(copy[p]||"");
+    return `<div class="plat-panel${i===0?" visible":""}" data-plat="${p}"><div class="copy-box"><button class="copy-btn" onclick="event.stopPropagation();copyText('${txt}')">Copiar</button>${escHtml(copy[p]||"")}</div></div>`;
   }).join("");
   const hashHtml=(pub.hashtags||[]).join(" ");
-  const promptEsc=(pub.prompt||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+  const promptEsc=escJs(pub.prompt||"");
   return `<div class="pub-card" id="${uid}">
     <div class="pub-header" onclick="togglePub(this)">
       <div class="pub-week">S${pub.semana||idx+1}</div>
-      <div class="pub-title">${pub.titulo||"Campaña"}</div>
+      <div class="pub-title">${escHtml(pub.titulo||"Campaña")}</div>
       <span class="tipo-badge ${tipoClass[tipo]||"tipo-marca"}">${tipoLabel[tipo]||tipo}</span>
-      <span class="pub-fmt">${pub.formato||"Reel"}</span>
+      <span class="pub-fmt">${escHtml(pub.formato||"Reel")}</span>
       <span class="pub-chevron">▼</span>
     </div>
     <div class="pub-body">
-      <div class="pub-concepto">${pub.concepto||""}</div>
+      <div class="pub-concepto">${escHtml(pub.concepto||"")}</div>
       <div class="card-label" style="margin-bottom:8px">Copy por plataforma</div>
       <div class="plat-tabs" data-uid="${uid}">${platTabsHtml}</div>
       <div data-uid="${uid}">${platPanelsHtml}</div>
-      ${hashHtml?`<div class="hash-row">${hashHtml}</div>`:""}
-      ${pub.prompt?`<div style="margin-top:14px"><div class="card-label" style="margin-bottom:8px">Prompt para imagen</div><div class="prompt-box"><div class="prompt-header"><span class="prompt-lbl">Midjourney v6.1 / Flux Pro</span><div class="prompt-pills"><span class="prompt-pill">--style raw</span></div></div><div class="prompt-text">${pub.prompt}</div><button class="prompt-copy" onclick="copyText('${promptEsc}')">📋 Copiar prompt</button></div></div>`:""}
+      ${hashHtml?`<div class="hash-row">${escHtml(hashHtml)}</div>`:""}
+      ${pub.prompt?`<div style="margin-top:14px"><div class="card-label" style="margin-bottom:8px">Prompt para imagen</div><div class="prompt-box"><div class="prompt-header"><span class="prompt-lbl">Midjourney v6.1 / Flux Pro</span><div class="prompt-pills"><span class="prompt-pill">--style raw</span></div></div><div class="prompt-text">${escHtml(pub.prompt)}</div><button class="prompt-copy" onclick="copyText('${promptEsc}')">📋 Copiar prompt</button></div></div>`:""}
     </div>
   </div>`;
 }
 
-async function loadCalendar(){
+function renderTools(toolsRaw){
+  const tools={...defaultTools,...(toolsRaw||{})};
+  const order=["estrategia","midjourney","flux","firefly","runway","ideogram"];
+  const grid=document.getElementById("toolsGrid");
+  const desc=document.getElementById("toolsDesc");
+
+  desc.textContent="Herramientas conectadas desde Firebase. Puedes actualizar links y prompts base desde admin.html.";
+  grid.innerHTML=order.map(key=>{
+    const meta=defaultToolMeta[key]||{cat:"Herramienta",use:""};
+    const tool={...defaultTools[key],...(tools[key]||{})};
+    const promptSafe=escJs(tool.prompt||"");
+    const primary=tool.primaryUrl?`<a class="tool-link-btn" href="${escHtml(tool.primaryUrl)}" target="_blank" rel="noopener noreferrer">${escHtml(tool.primaryLabel||"Abrir")}</a>`:"";
+    const secondary=tool.secondaryUrl?`<a class="tool-link-btn" href="${escHtml(tool.secondaryUrl)}" target="_blank" rel="noopener noreferrer">${escHtml(tool.secondaryLabel||"Abrir")}</a>`:"";
+    return `<div class="tool-card">
+      <div class="tool-cat">${escHtml(meta.cat)}</div>
+      <div class="tool-name">${escHtml(tool.name||"Herramienta")}</div>
+      <div class="tool-use">${escHtml(meta.use)}</div>
+      <span class="tool-badge">${escHtml(tool.badge||"tool")}</span>
+      <div class="tool-actions">
+        ${primary}
+        ${secondary}
+        <button class="tool-copy-btn" type="button" onclick="copyText('${promptSafe}')">Copiar prompt base</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+async function loadSite(){
   try{
-    const snap=await db.collection("herramax_2026").orderBy("order").get();
-    const months=snap.docs.map(d=>({id:d.id,...d.data()}));
+    const [monthsSnap, settingsSnap]=await Promise.all([
+      db.collection("herramax_2026").orderBy("order").get(),
+      db.collection("config").doc("settings").get()
+    ]);
+
+    const months=monthsSnap.docs.map(d=>({id:d.id,...d.data()}));
+    const settings=settingsSnap.exists?settingsSnap.data():{};
     document.getElementById("calDesc").textContent="Selecciona un mes → despliega cada campaña para ver el copy por plataforma y los prompts.";
     buildCalendar(months);
+    renderTools(settings.tools||null);
   }catch(e){
-    document.getElementById("calDesc").innerHTML=`<span style="color:#F09595">Error Firebase: ${e.message}</span>`;
+    document.getElementById("calDesc").innerHTML=`<span style="color:#F09595">Error Firebase: ${escHtml(e.message)}</span>`;
+    document.getElementById("toolsDesc").innerHTML=`<span style="color:#F09595">No se pudieron cargar las herramientas: ${escHtml(e.message)}</span>`;
+    renderTools(null);
   }
 }
 
@@ -325,7 +436,7 @@ function buildCalendar(months){
   months.forEach((m,i)=>{
     const tab=document.createElement("button");
     tab.className="month-tab"+(i===0?" active":"");
-    tab.innerHTML=m.short+(m.hot?'<span class="hot-pip"></span>':"");
+    tab.innerHTML=escHtml(m.short||"Mes")+(m.hot?'<span class="hot-pip"></span>':"");
     tab.onclick=()=>{
       document.querySelectorAll(".month-tab").forEach(t=>t.classList.remove("active"));
       document.querySelectorAll(".month-panel").forEach(p=>p.classList.remove("visible"));
@@ -334,10 +445,10 @@ function buildCalendar(months){
     };
     tabsEl.appendChild(tab);
 
-    const chips=(m.fechas||[]).map(f=>`<span class="chip ${chipC[f.c]||""}">${f.d} — ${f.label}</span>`).join("");
-    const trends=(m.trending||[]).map(t=>`<div class="trending-item"><div class="trending-tag">${t.tag}</div><div class="trending-title">${t.title}</div><div class="trending-desc">${t.desc}</div></div>`).join("");
-    const copiaSafe=(m.copia||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-    const promptSafe=(m.prompt||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+    const chips=(m.fechas||[]).map(f=>`<span class="chip ${chipC[f.c]||""}">${escHtml(f.d)} — ${escHtml(f.label)}</span>`).join("");
+    const trends=(m.trending||[]).map(t=>`<div class="trending-item"><div class="trending-tag">${escHtml(t.tag)}</div><div class="trending-title">${escHtml(t.title)}</div><div class="trending-desc">${escHtml(t.desc)}</div></div>`).join("");
+    const copiaSafe=escJs(m.copia||"");
+    const promptSafe=escJs(m.prompt||"");
     const pubs=(m.publicaciones||[]);
     const pubsHtml=pubs.length?`<div class="pub-section"><div class="pub-section-header">Campañas semanales <span class="pub-count">${pubs.length} publicación${pubs.length!==1?"es":""}</span></div>${pubs.map((p,idx)=>renderPub(p,idx,m.id)).join("")}</div>`:"";
 
@@ -346,28 +457,28 @@ function buildCalendar(months){
     panel.id="panel-"+i;
     panel.innerHTML=`
       <div class="panel-hero">
-        <div><div class="panel-month-name">${m.name} 2026</div><div class="panel-theme">${m.theme||""}</div></div>
-        <span class="priority-pill p-${m.priority||"media"}">${m.priority==="alta"?"Prioridad alta":"Prioridad media"}</span>
+        <div><div class="panel-month-name">${escHtml(m.name)} 2026</div><div class="panel-theme">${escHtml(m.theme||"")}</div></div>
+        <span class="priority-pill p-${escHtml(m.priority||"media")}">${m.priority==="alta"?"Prioridad alta":"Prioridad media"}</span>
       </div>
       ${m.mundial?`<div class="mundial-banner">⚽ MUNDIAL FIFA 2026 — México es sede. Máxima oportunidad del año.</div>`:""}
       <div class="card-grid-2">
         <div class="card"><div class="card-label">Fechas clave</div><div style="margin-top:4px">${chips}</div></div>
-        <div class="card"><div class="card-label">Estrategia del mes</div><p style="font-size:13px;color:var(--t2);line-height:1.65;margin-top:4px">${m.concepto||""}</p></div>
+        <div class="card"><div class="card-label">Estrategia del mes</div><p style="font-size:13px;color:var(--t2);line-height:1.65;margin-top:4px">${escHtml(m.concepto||"")}</p></div>
       </div>
       <div class="card" style="margin-bottom:12px"><div class="card-label">Trending hooks</div><div style="margin-top:8px">${trends}</div></div>
       <div class="card-grid-2" style="margin-bottom:0">
-        <div class="card"><div class="card-label">Copy general del mes</div><div class="copy-box"><button class="copy-btn" onclick="copyText('${copiaSafe}')">Copiar</button>${m.copia||""}</div></div>
-        <div class="card"><div class="card-label">Prompt base del mes</div><div class="prompt-box" style="margin-top:8px"><div class="prompt-header"><span class="prompt-lbl">Midjourney / Flux Pro</span><div class="prompt-pills"><span class="prompt-pill">--style raw</span></div></div><div class="prompt-text">${m.prompt||""}</div><button class="prompt-copy" onclick="copyText('${promptSafe}')">📋 Copiar</button></div></div>
+        <div class="card"><div class="card-label">Copy general del mes</div><div class="copy-box"><button class="copy-btn" onclick="copyText('${copiaSafe}')">Copiar</button>${escHtml(m.copia||"")}</div></div>
+        <div class="card"><div class="card-label">Prompt base del mes</div><div class="prompt-box" style="margin-top:8px"><div class="prompt-header"><span class="prompt-lbl">Midjourney / Flux Pro</span><div class="prompt-pills"><span class="prompt-pill">--style raw</span></div></div><div class="prompt-text">${escHtml(m.prompt||"")}</div><button class="prompt-copy" onclick="copyText('${promptSafe}')">📋 Copiar</button></div></div>
       </div>
       ${pubsHtml}
-      ${m.notas?`<div style="margin-top:1rem;padding:12px 16px;background:var(--s2);border-radius:var(--r);border-left:2px solid var(--orange-dim);font-size:12px;color:var(--t2)">${m.notas}</div>`:""}`;
+      ${m.notas?`<div style="margin-top:1rem;padding:12px 16px;background:var(--s2);border-radius:var(--r);border-left:2px solid var(--orange-dim);font-size:12px;color:var(--t2)">${escHtml(m.notas)}</div>`:""}`;
     panelsEl.appendChild(panel);
   });
 }
 
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target)}}),{threshold:0.1});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-loadCalendar();
+loadSite();
 </script>
 </body>
 </html>
