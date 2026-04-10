@@ -331,8 +331,8 @@ async function loginWithGoogle() {
   errEl.textContent = "";
   try {
     const result = await auth.signInWithPopup(provider);
-    const email = (result.user && result.user.email) ? result.user.email.toLowerCase() : "";
-    const normalized = allowedEmails.map(e => e.toLowerCase());
+    const email = (result.user && result.user.email) ? result.user.email.toLowerCase().trim() : "";
+    const normalized = allowedEmails.map(e => e.toLowerCase().trim());
 
     if (!normalized.includes(email)) {
       await auth.signOut();
@@ -346,8 +346,8 @@ async function loginWithGoogle() {
 
 auth.onAuthStateChanged(async user => {
   if (user) {
-    const email = (user.email || "").toLowerCase();
-    const normalized = allowedEmails.map(e => e.toLowerCase());
+    const email = (user.email || "").toLowerCase().trim();
+    const normalized = allowedEmails.map(e => e.toLowerCase().trim());
 
     if (!normalized.includes(email)) {
       await auth.signOut();
