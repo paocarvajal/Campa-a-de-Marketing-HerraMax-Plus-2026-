@@ -12,7 +12,7 @@
   --line:rgba(255,255,255,0.08);--line2:rgba(255,255,255,0.14);
   --t1:#F2F0EA;--t2:#A09D96;--t3:#5E5C58;
   --r:6px;--rl:12px;
-  --ok:#97C459;--err:#F09595;--warn:#FF9A2E;
+  --ok:#97C459;--err:#F09595;--warn:#FF9A2E;--info:#85B7EB;
 }
 body{background:var(--black);color:var(--t1);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;min-height:100vh}
 
@@ -23,22 +23,19 @@ body{background:var(--black);color:var(--t1);font-family:'Segoe UI',system-ui,sa
 }
 .auth-card{
   background:var(--s1);border:1px solid var(--line2);border-radius:var(--rl);
-  padding:2.5rem;width:360px;
+  padding:2.5rem;width:380px;
 }
 .auth-logo{font-size:22px;font-weight:700;letter-spacing:0.06em;margin-bottom:0.25rem}
 .auth-logo span{color:var(--orange)}
-.auth-sub{font-size:12px;color:var(--t3);margin-bottom:2rem}
-.auth-label{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--t3);margin-bottom:6px;display:block}
-.auth-input{
-  width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:var(--r);
-  color:var(--t1);font-size:14px;padding:10px 14px;margin-bottom:1rem;font-family:inherit;
-}
-.auth-input:focus{outline:none;border-color:var(--orange-d)}
+.auth-sub{font-size:12px;color:var(--t3);margin-bottom:1.5rem;line-height:1.6}
 .auth-btn{
   width:100%;background:var(--orange);color:#fff;border:none;border-radius:var(--r);
-  padding:11px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
+  padding:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
 }
 .auth-btn:hover{background:var(--orange-g)}
+.auth-note{
+  margin-top:12px;font-size:12px;color:var(--t3);line-height:1.6
+}
 .auth-err{font-size:12px;color:var(--err);margin-top:0.75rem;text-align:center}
 
 /* APP */
@@ -59,18 +56,18 @@ nav{
 }
 .nav-out:hover{color:var(--t1)}
 
-.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 52px)}
 
 /* SIDEBAR */
 .sidebar{background:var(--s1);border-right:1px solid var(--line);padding:1rem}
 .sidebar-label{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--t3);margin:1rem 0 0.5rem;padding:0 0.5rem}
-.month-link{
+.menu-link,.month-link{
   display:flex;align-items:center;justify-content:space-between;
-  padding:7px 10px;border-radius:var(--r);cursor:pointer;
+  padding:8px 10px;border-radius:var(--r);cursor:pointer;
   font-size:13px;color:var(--t2);margin-bottom:2px;
 }
-.month-link:hover{background:var(--s2);color:var(--t1)}
-.month-link.active{background:var(--s3);color:var(--t1);font-weight:600}
+.menu-link:hover,.month-link:hover{background:var(--s2);color:var(--t1)}
+.menu-link.active,.month-link.active{background:var(--s3);color:var(--t1);font-weight:600}
 .month-link .pip{width:6px;height:6px;border-radius:50%}
 .pip-alta{background:#E24B4A}.pip-media{background:var(--orange)}.pip-baja{background:var(--ok)}
 .status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
@@ -84,6 +81,7 @@ nav{
   display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;
 }
 .main-title{font-size:24px;font-weight:700;letter-spacing:0.02em}
+.main-subtitle{font-size:12px;color:var(--t3);margin-top:3px}
 .status-select{
   background:var(--s2);border:1px solid var(--line2);color:var(--t1);
   border-radius:var(--r);padding:6px 10px;font-size:12px;font-family:inherit;cursor:pointer;
@@ -101,16 +99,16 @@ nav{
 .field{background:var(--s1);border:1px solid var(--line);border-radius:var(--rl);padding:1rem 1.25rem}
 .field.full{grid-column:1/-1}
 .field-label{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--t3);margin-bottom:8px;font-weight:600}
-.field-input,.field-textarea{
+.field-input,.field-textarea,.field-select{
   width:100%;background:var(--s2);border:1px solid var(--line2);
   color:var(--t1);border-radius:var(--r);padding:10px 12px;
   font-size:13px;font-family:inherit;line-height:1.6;
 }
-.field-input:focus,.field-textarea:focus{outline:none;border-color:var(--orange-d)}
+.field-input:focus,.field-textarea:focus,.field-select:focus{outline:none;border-color:var(--orange-d)}
 .field-textarea{resize:vertical;min-height:90px}
 
-/* PROMPT PREVIEW */
-.prompt-preview{
+/* PREVIEW */
+.prompt-preview,.tool-preview{
   background:#080808;border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);
   padding:12px;font-family:monospace;font-size:12px;color:#C8C5BE;
   line-height:1.7;white-space:pre-wrap;word-break:break-word;margin-top:8px;
@@ -140,15 +138,25 @@ nav{
   border-radius:var(--r);padding:7px 6px;font-size:12px;font-family:inherit;
 }
 
-/* POSTS LOG */
-.posts-section{margin-top:1.5rem}
-.post-row{
-  background:var(--s1);border:1px solid var(--line);border-radius:var(--r);
-  padding:10px 14px;margin-bottom:6px;
-  display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;
+/* TOOLS EDITOR */
+.tool-card{
+  background:var(--s1);border:1px solid var(--line);border-radius:var(--rl);
+  padding:1rem 1.25rem;margin-bottom:12px;
 }
-.post-meta{font-size:12px;color:var(--t2)}
-.post-badge{font-size:10px;padding:3px 8px;border-radius:4px;background:var(--s3);color:var(--t2)}
+.tool-card-header{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px
+}
+.tool-title{font-size:16px;font-weight:700}
+.tool-tag{
+  font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--orange-glow);background:rgba(224,123,10,.12);
+  border:1px solid rgba(224,123,10,.24);border-radius:999px;padding:4px 8px
+}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.note-box{
+  background:rgba(55,138,221,0.10);border:1px solid rgba(55,138,221,0.22);
+  color:#B8D4F1;border-radius:var(--r);padding:12px 14px;font-size:12px;line-height:1.6;margin-bottom:12px
+}
 
 /* TOAST */
 .toast{
@@ -163,6 +171,7 @@ nav{
 /* LOADING */
 .loading{color:var(--t3);font-size:13px;padding:2rem}
 
+@media(max-width:900px){.tool-grid{grid-template-columns:1fr}}
 @media(max-width:700px){
   .layout{grid-template-columns:1fr}
   .sidebar{display:none}
@@ -172,21 +181,16 @@ nav{
 </head>
 <body>
 
-<!-- AUTH -->
 <div class="auth-screen" id="authScreen">
   <div class="auth-card">
     <div class="auth-logo">HERRA<span>MAX</span> PLUS</div>
-    <div class="auth-sub">Panel de Administración · Campaña 2026</div>
-    <label class="auth-label">Correo electrónico</label>
-    <input class="auth-input" type="email" id="authEmail" placeholder="admin@email.com">
-    <label class="auth-label">Contraseña</label>
-    <input class="auth-input" type="password" id="authPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()">
-    <button class="auth-btn" onclick="login()">Entrar al panel</button>
+    <div class="auth-sub">Panel de Administración · Campaña 2026<br>Acceso con cuenta Google autorizada</div>
+    <button class="auth-btn" onclick="loginWithGoogle()">Entrar con Google</button>
+    <div class="auth-note">Solo podrán entrar los correos autorizados en el código y en las reglas de Firestore.</div>
     <div class="auth-err" id="authErr"></div>
   </div>
 </div>
 
-<!-- APP -->
 <div class="app" id="app">
   <nav>
     <div class="nav-logo">HERRA<span>MAX</span> PLUS <span style="font-weight:400;color:var(--t3);font-size:12px;margin-left:6px">Admin</span></div>
@@ -194,48 +198,115 @@ nav{
     <div class="nav-user" id="navUser"></div>
     <button class="nav-out" onclick="logout()">Salir</button>
   </nav>
+
   <div class="layout">
     <div class="sidebar">
+      <div class="sidebar-label">Panel</div>
+      <div class="menu-link active" id="menu-tools" onclick="selectToolsView()">
+        <span>Herramientas IA</span>
+        <span style="color:var(--info)">●</span>
+      </div>
+
       <div class="sidebar-label">Meses 2026</div>
       <div id="sidebarMonths"></div>
     </div>
+
     <div class="main" id="mainArea">
-      <div class="loading">Cargando campaña...</div>
+      <div class="loading">Cargando panel...</div>
     </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
 <script>
-// ============================================================
-// ⚠️ REEMPLAZA CON TU CONFIG DE FIREBASE
-// ============================================================
 const firebaseConfig = {
-  apiKey:            "AIzaSyCFBPIBMMp92FmS25VRKMksocdFUL8dRfg",
-  authDomain:        "marketing-herramax-plus-2026.firebaseapp.com",
-  projectId:         "marketing-herramax-plus-2026",
-  storageBucket:     "marketing-herramax-plus-2026.firebasestorage.app",
+  apiKey: "AIzaSyCFBPIBMMp92FmS25VRKMksocdFUL8dRfg",
+  authDomain: "marketing-herramax-plus-2026.firebaseapp.com",
+  projectId: "marketing-herramax-plus-2026",
+  storageBucket: "marketing-herramax-plus-2026.firebasestorage.app",
   messagingSenderId: "834498362799",
-  appId:             "1:834498362799:web:5f4cd82c9510c8816fc35a",
-  measurementId:     "G-RL71X7X16K"
+  appId: "1:834498362799:web:5f4cd82c9510c8816fc35a",
+  measurementId: "G-RL71X7X16K"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db   = firebase.firestore();
 const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
-// ---- GLOBALS ----
+const allowedEmails = [
+  "nailil811@gmail.com",
+  "aesteves538@gmail.com"
+];
+
 let allMonths = [];
 let currentId = null;
 let currentData = null;
+let currentView = "tools";
+let settingsData = null;
 
-// ---- TOAST ----
+const defaultTools = {
+  estrategia: {
+    name: "Claude + ChatGPT-4o",
+    badge: "Cerebro",
+    primaryLabel: "Abrir Claude",
+    primaryUrl: "https://claude.ai",
+    secondaryLabel: "Abrir ChatGPT",
+    secondaryUrl: "https://chatgpt.com",
+    prompt: "Actúa como estratega senior de marketing para HerraMax Plus en México. Genera una campaña mensual con objetivo, concepto creativo, 3 ideas de contenido, copy por plataforma, CTA comercial y una recomendación visual alineada al oficio, humor relatable y orgullo mexicano."
+  },
+  midjourney: {
+    name: "Midjourney v6.1",
+    badge: "Recomendado",
+    primaryLabel: "Abrir herramienta",
+    primaryUrl: "https://www.midjourney.com",
+    secondaryLabel: "",
+    secondaryUrl: "",
+    prompt: "hyperrealistic mexican construction worker using professional tools, HerraMax Plus black and orange branding, realistic hands with 5 fingers, warm cinematic lighting, detailed textures, commercial photography, premium ad look, photorealistic --ar 4:5 --style raw --v 6.1"
+  },
+  flux: {
+    name: "Flux Pro 1.1",
+    badge: "Manos",
+    primaryLabel: "Abrir Fal",
+    primaryUrl: "https://fal.ai",
+    secondaryLabel: "Abrir Replicate",
+    secondaryUrl: "https://replicate.com",
+    prompt: "photorealistic mexican worker portrait, realistic hands and fingers, HerraMax Plus branding, natural pose, sharp facial detail, warm commercial lighting, premium ad photography, vertical 4:5 composition"
+  },
+  firefly: {
+    name: "Adobe Firefly",
+    badge: "Logo",
+    primaryLabel: "Abrir herramienta",
+    primaryUrl: "https://firefly.adobe.com",
+    secondaryLabel: "",
+    secondaryUrl: "",
+    prompt: "Integra el logo de HerraMax Plus de forma natural sobre la imagen final, respetando perspectiva, sombras, iluminación, textura del material y look premium publicitario."
+  },
+  runway: {
+    name: "Runway Gen-3",
+    badge: "Video",
+    primaryLabel: "Abrir herramienta",
+    primaryUrl: "https://runwayml.com",
+    secondaryLabel: "",
+    secondaryUrl: "",
+    prompt: "Create a short cinematic vertical social media ad for HerraMax Plus using a realistic construction or workshop scene, subtle camera movement, warm light, premium commercial feel, smooth motion and strong branded closing frame."
+  },
+  ideogram: {
+    name: "Ideogram 2.0",
+    badge: "Texto",
+    primaryLabel: "Abrir herramienta",
+    primaryUrl: "https://ideogram.ai",
+    secondaryLabel: "",
+    secondaryUrl: "",
+    prompt: "Diseña una imagen publicitaria vertical 4:5 para HerraMax Plus con texto perfectamente legible en español, branding negro y naranja, composición limpia, alto contraste, estilo premium y enfoque comercial."
+  }
+};
+
 function toast(msg, isErr = false) {
   const el = document.getElementById("toast");
   el.textContent = msg;
@@ -243,81 +314,259 @@ function toast(msg, isErr = false) {
   setTimeout(() => el.className = "toast", 2500);
 }
 
-// ---- AUTH ----
-auth.onAuthStateChanged(user => {
-  if (user) {
-    document.getElementById("authScreen").style.display = "none";
-    document.getElementById("app").style.display = "block";
-    document.getElementById("navUser").textContent = user.email;
-    loadCampaign();
-  } else {
-    document.getElementById("authScreen").style.display = "flex";
-    document.getElementById("app").style.display = "none";
-  }
-});
-
-async function login() {
-  const email = document.getElementById("authEmail").value.trim();
-  const pass  = document.getElementById("authPass").value;
-  const errEl = document.getElementById("authErr");
-  errEl.textContent = "";
-  try {
-    await auth.signInWithEmailAndPassword(email, pass);
-  } catch(e) {
-    errEl.textContent = "Error: " + e.message;
-  }
+function esc(str){
+  return String(str ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
 }
 
 function logout() {
   auth.signOut();
 }
 
-// ---- LOAD DATA ----
-async function loadCampaign() {
+async function loginWithGoogle() {
+  const errEl = document.getElementById("authErr");
+  errEl.textContent = "";
   try {
-    const snap = await db.collection("herramax_2026").orderBy("order").get();
-    allMonths = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderSidebar();
-    if (allMonths.length > 0) selectMonth(allMonths[0].id);
-  } catch(e) {
-    document.getElementById("mainArea").innerHTML = `<div class="loading" style="color:var(--err)">Error al cargar: ${e.message}</div>`;
+    const result = await auth.signInWithPopup(provider);
+    const email = (result.user && result.user.email) ? result.user.email.toLowerCase() : "";
+    const normalized = allowedEmails.map(e => e.toLowerCase());
+
+    if (!normalized.includes(email)) {
+      await auth.signOut();
+      errEl.textContent = "Tu correo no está autorizado para este panel.";
+      return;
+    }
+  } catch (e) {
+    errEl.textContent = "Error: " + e.message;
   }
 }
 
-// ---- SIDEBAR ----
+auth.onAuthStateChanged(async user => {
+  if (user) {
+    const email = (user.email || "").toLowerCase();
+    const normalized = allowedEmails.map(e => e.toLowerCase());
+
+    if (!normalized.includes(email)) {
+      await auth.signOut();
+      document.getElementById("authErr").textContent = "Tu correo no está autorizado para este panel.";
+      return;
+    }
+
+    document.getElementById("authScreen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    document.getElementById("navUser").textContent = user.email;
+    await loadAll();
+  } else {
+    document.getElementById("authScreen").style.display = "flex";
+    document.getElementById("app").style.display = "none";
+  }
+});
+
+async function loadAll() {
+  try {
+    const [monthsSnap, settingsSnap] = await Promise.all([
+      db.collection("herramax_2026").orderBy("order").get(),
+      db.collection("config").doc("settings").get()
+    ]);
+
+    allMonths = monthsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    const rawSettings = settingsSnap.exists ? settingsSnap.data() : {};
+    settingsData = {
+      ...rawSettings,
+      tools: {
+        ...defaultTools,
+        ...(rawSettings.tools || {})
+      }
+    };
+
+    renderSidebar();
+    selectToolsView();
+  } catch(e) {
+    document.getElementById("mainArea").innerHTML =
+      `<div class="loading" style="color:var(--err)">Error al cargar: ${esc(e.message)}</div>`;
+  }
+}
+
 function renderSidebar() {
   const el = document.getElementById("sidebarMonths");
   el.innerHTML = "";
   const statusDot = { pendiente:"dot-pendiente", en_progreso:"dot-en_progreso", publicado:"dot-publicado" };
+
   allMonths.forEach(m => {
     const div = document.createElement("div");
-    div.className = "month-link" + (m.id === currentId ? " active" : "");
+    div.className = "month-link" + (currentView === "month" && m.id === currentId ? " active" : "");
     div.id = "slink-" + m.id;
     div.onclick = () => selectMonth(m.id);
-    const pipClass = m.priority === "alta" ? "pip-alta" : "pip-media";
+
+    const pipClass =
+      m.priority === "alta" ? "pip-alta" :
+      m.priority === "baja" ? "pip-baja" : "pip-media";
+
     const dotClass = statusDot[m.status || "pendiente"] || "dot-pendiente";
+
     div.innerHTML = `
       <div style="display:flex;align-items:center;gap:6px">
         <div class="pip ${pipClass}"></div>
-        <span>${m.name}</span>
+        <span>${esc(m.name)}</span>
       </div>
       <div class="status-dot ${dotClass}"></div>`;
     el.appendChild(div);
   });
+
+  syncSidebarActive();
 }
 
-// ---- SELECT MONTH ----
+function syncSidebarActive() {
+  document.getElementById("menu-tools").classList.toggle("active", currentView === "tools");
+  document.querySelectorAll(".month-link").forEach(l => l.classList.remove("active"));
+  if (currentView === "month" && currentId) {
+    const lnk = document.getElementById("slink-" + currentId);
+    if (lnk) lnk.classList.add("active");
+  }
+}
+
+function selectToolsView() {
+  currentView = "tools";
+  currentId = null;
+  currentData = null;
+  syncSidebarActive();
+  renderToolsEditor();
+}
+
 function selectMonth(id) {
+  currentView = "month";
   currentId = id;
   currentData = allMonths.find(m => m.id === id);
-  document.querySelectorAll(".month-link").forEach(l => l.classList.remove("active"));
-  const lnk = document.getElementById("slink-" + id);
-  if (lnk) lnk.classList.add("active");
-  renderEditor();
+  syncSidebarActive();
+  renderMonthEditor();
 }
 
-// ---- RENDER EDITOR ----
-function renderEditor() {
+function renderToolsEditor() {
+  const t = settingsData?.tools || defaultTools;
+  const main = document.getElementById("mainArea");
+
+  main.innerHTML = `
+    <div class="main-header">
+      <div>
+        <div class="main-title">Herramientas IA</div>
+        <div class="main-subtitle">Edita links y prompts base del stack de IA</div>
+      </div>
+      <button class="save-btn" id="saveToolsBtn" onclick="saveTools()">Guardar herramientas</button>
+    </div>
+
+    <div class="note-box">
+      Esto se guarda en <strong>config/settings</strong> dentro de Firestore y lo consume <strong>index-firebase.html</strong>.
+    </div>
+
+    ${renderSingleToolEditor("estrategia", t.estrategia)}
+    ${renderSingleToolEditor("midjourney", t.midjourney)}
+    ${renderSingleToolEditor("flux", t.flux)}
+    ${renderSingleToolEditor("firefly", t.firefly)}
+    ${renderSingleToolEditor("runway", t.runway)}
+    ${renderSingleToolEditor("ideogram", t.ideogram)}
+  `;
+}
+
+function renderSingleToolEditor(key, data) {
+  const d = { ...defaultTools[key], ...(data || {}) };
+
+  return `
+    <div class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-title">${esc(d.name)}</div>
+        <div class="tool-tag">${esc(d.badge || "tool")}</div>
+      </div>
+
+      <div class="tool-grid">
+        <div class="field">
+          <div class="field-label">Nombre</div>
+          <input class="field-input" id="tool_${key}_name" value="${esc(d.name)}">
+        </div>
+
+        <div class="field">
+          <div class="field-label">Badge</div>
+          <input class="field-input" id="tool_${key}_badge" value="${esc(d.badge)}">
+        </div>
+
+        <div class="field">
+          <div class="field-label">Etiqueta botón principal</div>
+          <input class="field-input" id="tool_${key}_primaryLabel" value="${esc(d.primaryLabel)}">
+        </div>
+
+        <div class="field">
+          <div class="field-label">URL principal</div>
+          <input class="field-input" id="tool_${key}_primaryUrl" value="${esc(d.primaryUrl)}" placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <div class="field-label">Etiqueta botón secundario</div>
+          <input class="field-input" id="tool_${key}_secondaryLabel" value="${esc(d.secondaryLabel)}" placeholder="Opcional">
+        </div>
+
+        <div class="field">
+          <div class="field-label">URL secundaria</div>
+          <input class="field-input" id="tool_${key}_secondaryUrl" value="${esc(d.secondaryUrl)}" placeholder="https://...">
+        </div>
+
+        <div class="field full">
+          <div class="field-label">Prompt base</div>
+          <textarea class="field-textarea" id="tool_${key}_prompt" style="min-height:120px" oninput="updateToolPreview('${key}')">${esc(d.prompt)}</textarea>
+          <div class="tool-preview" id="tool_${key}_preview">${esc(d.prompt)}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function updateToolPreview(key) {
+  const txt = document.getElementById(`tool_${key}_prompt`).value;
+  document.getElementById(`tool_${key}_preview`).textContent = txt;
+}
+
+async function saveTools() {
+  const btn = document.getElementById("saveToolsBtn");
+  btn.disabled = true;
+  btn.textContent = "Guardando...";
+
+  const keys = ["estrategia","midjourney","flux","firefly","runway","ideogram"];
+  const tools = {};
+
+  for (const key of keys) {
+    tools[key] = {
+      name: document.getElementById(`tool_${key}_name`).value.trim(),
+      badge: document.getElementById(`tool_${key}_badge`).value.trim(),
+      primaryLabel: document.getElementById(`tool_${key}_primaryLabel`).value.trim(),
+      primaryUrl: document.getElementById(`tool_${key}_primaryUrl`).value.trim(),
+      secondaryLabel: document.getElementById(`tool_${key}_secondaryLabel`).value.trim(),
+      secondaryUrl: document.getElementById(`tool_${key}_secondaryUrl`).value.trim(),
+      prompt: document.getElementById(`tool_${key}_prompt`).value.trim()
+    };
+  }
+
+  try {
+    await db.collection("config").doc("settings").set({
+      ...(settingsData || {}),
+      brandName: "HerraMax Plus",
+      campaignYear: 2026,
+      tools,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+
+    settingsData = { ...(settingsData || {}), tools };
+    toast("✓ Herramientas guardadas correctamente");
+  } catch(e) {
+    toast("Error al guardar herramientas: " + e.message, true);
+  }
+
+  btn.disabled = false;
+  btn.textContent = "Guardar herramientas";
+}
+
+function renderMonthEditor() {
   const m = currentData;
   const main = document.getElementById("mainArea");
   const statOpts = ["pendiente","en_progreso","publicado"].map(s =>
@@ -326,8 +575,8 @@ function renderEditor() {
   main.innerHTML = `
     <div class="main-header">
       <div>
-        <div class="main-title">${m.name} 2026</div>
-        <div style="font-size:12px;color:var(--t3);margin-top:3px">${m.theme}</div>
+        <div class="main-title">${esc(m.name)} 2026</div>
+        <div class="main-subtitle">${esc(m.theme || "")}</div>
       </div>
       <select class="status-select" id="f_status" onchange="currentData.status=this.value">${statOpts}</select>
       <button class="save-btn" id="saveBtn" onclick="saveMonth()">Guardar cambios</button>
@@ -338,9 +587,10 @@ function renderEditor() {
         <div class="field-label">Tema del mes</div>
         <input class="field-input" id="f_theme" value="${esc(m.theme||'')}">
       </div>
+
       <div class="field">
         <div class="field-label">Prioridad</div>
-        <select class="field-input" id="f_priority">
+        <select class="field-select" id="f_priority">
           <option value="alta" ${m.priority==="alta"?"selected":""}>Alta</option>
           <option value="media" ${m.priority==="media"?"selected":""}>Media</option>
           <option value="baja" ${m.priority==="baja"?"selected":""}>Baja</option>
@@ -354,17 +604,17 @@ function renderEditor() {
 
       <div class="field full">
         <div class="field-label">Copy sugerido para redes sociales</div>
-        <textarea class="field-textarea" id="f_copia" style="min-height:70px">${esc(m.copia||'')}</textarea>
+        <textarea class="field-textarea" id="f_copia" style="min-height:80px">${esc(m.copia||'')}</textarea>
       </div>
 
       <div class="field full">
-        <div class="field-label">Prompt para Midjourney / Flux Pro</div>
-        <textarea class="field-textarea" id="f_prompt" style="min-height:80px" oninput="document.getElementById('promptPreview').textContent=this.value">${esc(m.prompt||'')}</textarea>
+        <div class="field-label">Prompt base del mes</div>
+        <textarea class="field-textarea" id="f_prompt" style="min-height:100px" oninput="document.getElementById('promptPreview').textContent=this.value">${esc(m.prompt||'')}</textarea>
         <div class="prompt-preview" id="promptPreview">${esc(m.prompt||'')}</div>
       </div>
 
       <div class="field full">
-        <div class="field-label">URL de imagen generada (opcional)</div>
+        <div class="field-label">URL de imagen generada</div>
         <input class="field-input" id="f_imagenUrl" value="${esc(m.imagenUrl||'')}" placeholder="https://...">
       </div>
 
@@ -392,9 +642,6 @@ function renderEditor() {
   `;
 }
 
-function esc(str){ return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-
-// ---- FECHAS ----
 function renderFechas(fechas) {
   if (!fechas.length) return '<div style="color:var(--t3);font-size:12px;padding:6px 0">Sin fechas. Usa + para agregar.</div>';
   return fechas.map((f,i) => `
@@ -407,12 +654,10 @@ function renderFechas(fechas) {
       <button class="del-btn" onclick="deleteFecha(${i})">✕</button>
     </div>`).join("");
 }
-
 function updateFecha(i,key,val){ currentData.fechas[i][key]=val; }
 function deleteFecha(i){ currentData.fechas.splice(i,1); document.getElementById("fechasEditor").innerHTML=renderFechas(currentData.fechas); }
 function addFecha(){ if(!currentData.fechas)currentData.fechas=[]; currentData.fechas.push({d:"",label:"",c:"orange"}); document.getElementById("fechasEditor").innerHTML=renderFechas(currentData.fechas); }
 
-// ---- TRENDING ----
 function renderTrending(trending) {
   if (!trending.length) return '<div style="color:var(--t3);font-size:12px;padding:6px 0">Sin hooks. Usa + para agregar.</div>';
   return trending.map((t,i) => `
@@ -427,12 +672,10 @@ function renderTrending(trending) {
       </div>
     </div>`).join("");
 }
-
 function updateTrending(i,key,val){ currentData.trending[i][key]=val; }
 function deleteTrending(i){ currentData.trending.splice(i,1); document.getElementById("trendingEditor").innerHTML=renderTrending(currentData.trending); }
 function addTrending(){ if(!currentData.trending)currentData.trending=[]; currentData.trending.push({tag:"",title:"",desc:""}); document.getElementById("trendingEditor").innerHTML=renderTrending(currentData.trending); }
 
-// ---- SAVE ----
 async function saveMonth() {
   const btn = document.getElementById("saveBtn");
   btn.disabled = true;
@@ -449,19 +692,18 @@ async function saveMonth() {
   currentData.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
 
   const { id, ...data } = currentData;
+
   try {
     await db.collection("herramax_2026").doc(currentId).update(data);
-    // update local cache
     const idx = allMonths.findIndex(m => m.id === currentId);
     if (idx > -1) allMonths[idx] = { ...currentData };
     renderSidebar();
-    document.querySelectorAll(".month-link").forEach(l => l.classList.remove("active"));
-    const lnk = document.getElementById("slink-" + currentId);
-    if (lnk) lnk.classList.add("active");
+    syncSidebarActive();
     toast("✓ Cambios guardados correctamente");
   } catch(e) {
     toast("Error al guardar: " + e.message, true);
   }
+
   btn.disabled = false;
   btn.textContent = "Guardar cambios";
 }
