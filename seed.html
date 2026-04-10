@@ -129,21 +129,52 @@ const campaignData = [
     id: "abril",
     name: "Abril", short: "Abr", order: 4,
     priority: "alta", hot: true, mundial: false,
-    theme: "Semana Santa + back to projects",
-    status: "pendiente", notas: "",
+    theme: "Semana Santa + Apertura próxima HerraMax",
+    status: "pendiente",
+    notas: "Apertura tentativa 8 mayo — no confirmada. Awareness sin revelar fecha.",
     fechas: [
       { d: "2-5 Abr", label: "Semana Santa", c: "blue" },
       { d: "30 Abr",  label: "Día del Niño", c: "green" },
-      { d: "14 Abr",  label: "Reanudación obras", c: "orange" }
+      { d: "Abr",     label: "Pre-apertura HerraMax", c: "orange" }
     ],
     trending: [
       { tag: "Semana Santa meme", title: "\"El descanso VS los proyectos pendientes\"", desc: "Semana Santa = días libres = oportunidad de avanzar la remodelación. Humor super relatable." },
       { tag: "Día del Niño", title: "\"De grande quiero ser como mi papá\"", desc: "Contenido emotivo. Niños imitando a sus padres. Alto engagement emocional." }
     ],
-    concepto: "Semana Santa como oportunidad: el trabajador aprovecha el puente. Día del Niño: contenido familiar/emocional.",
-    copia: "\"Semana Santa tiene 7 días. Suficiente para ese proyecto que llevas meses posponiendo. 🔨 #SemanaDeAvance #HerraMaxPlus\"",
-    prompt: "heartwarming photo of a father and young son working together on a home project, father wearing HerraMax Plus black t-shirt, son with small toy tools imitating dad, mexican home interior, warm golden hour light, realistic hands, photorealistic --ar 4:5 --style raw --v 6.1",
+    concepto: "Semana Santa + campañas de apertura de marca. HerraMax Plus está por llegar — generamos expectativa sin confirmar fecha. Dos publicaciones de brand awareness puro para calentar el mercado.",
+    copia: "\"Algo grande se está construyendo en Puebla. Pronto lo verás. Síguenos para ser de los primeros. 🔶 #HerraMaxPlus #ComingSoon\"",
+    prompt: "mysterious dark teaser photo, silhouette of construction tools arranged dramatically, single orange light ray cutting through darkness, HerraMax Plus logo barely visible, cinematic composition, high contrast --ar 4:5 --style raw --v 6.1",
     imagenUrl: "",
+    publicaciones: [
+      {
+        semana: 1,
+        tipo: "awareness",
+        titulo: "Algo grande se acerca — Teaser de apertura",
+        concepto: "Campaña de misterio e intriga. No revelamos qué es HerraMax Plus todavía — solo insinuamos que algo grande está por llegar a Puebla. Imagen oscura, naranja en las sombras, herramientas apenas visibles. Genera curiosidad y primeros seguidores orgánicos antes de abrir.",
+        formato: "Imagen + Historia",
+        copy: {
+          instagram: "Algo se está construyendo en Puebla. 🔶\n\nNo podemos decir mucho todavía.\nPero pronto lo verás.\n\nSíguenos para ser de los primeros.\n\n#HerraMaxPlus #Puebla #Pronto #ComingSoon",
+          facebook: "📍 Puebla, México\n\nAlgo grande está por llegar. No es una obra más. Es algo que los que trabajan con herramientas van a agradecer.\n\nMantente al tanto — muy pronto te contamos todo.\n\n🔶 Síguenos para no perderte el lanzamiento.\n\n#HerraMaxPlus #Puebla #ComingSoon",
+          tiktok: "POV: algo se está armando en Puebla 🔶\n\n[Texto en video: \"Pronto...\"]\n[Sonido: efecto de herramienta + música dramática]\n\n¿Adivinas qué es? 👇\n\n#HerraMaxPlus #Puebla #ComingSoon #Fyp"
+        },
+        hashtags: ["#HerraMaxPlus", "#Puebla", "#ComingSoon", "#Pronto", "#HerramientasMexico"],
+        prompt: "mysterious dark teaser photo, silhouette of construction tools arranged dramatically, single orange light ray cutting through darkness, HerraMax Plus logo barely visible in background, cinematic composition, high contrast, photorealistic --ar 4:5 --style raw --v 6.1"
+      },
+      {
+        semana: 3,
+        tipo: "awareness",
+        titulo: "Estamos casi listos — Behind the scenes apertura",
+        concepto: "Behind the scenes de los preparativos. Mostramos que algo real está pasando sin decir la fecha exacta. Humaniza la marca antes de abrir: hay personas trabajando, hay emoción, hay preparación.",
+        formato: "Carrusel / Reel corto",
+        copy: {
+          instagram: "Estamos casi listos. 🔧\n\nHay herramientas que acomodar.\nHay paredes que preparar.\nHay un equipo que no ha parado.\n\nMuy pronto abrimos las puertas.\n\n📍 Puebla, México\n\n#HerraMaxPlus #Apertura #Puebla #BehindTheScenes",
+          facebook: "El equipo de HerraMax Plus está trabajando para darte algo que no esperabas en Puebla.\n\n¿Qué es? Pronto lo sabrás. Lo que sí te podemos decir es que si trabajas con herramientas, esto es para ti.\n\n📍 Muy pronto en Puebla. Síguenos.\n\n#HerraMaxPlus #Puebla #Apertura",
+          tiktok: "POV: estás viendo cómo nace algo grande en Puebla 👀🔶\n\n[Video: manos preparando herramientas, equipo trabajando]\n[Texto: \"Casi listos... ¿Adivinas qué somos?\"]\n\n#HerraMaxPlus #BehindTheScenes #Puebla #Fyp"
+        },
+        hashtags: ["#HerraMaxPlus", "#Apertura", "#Puebla", "#BehindTheScenes", "#CasiListos"],
+        prompt: "behind the scenes photo of a team preparing a tool store, boxes of professional tools being organized, warm work lighting, black and orange HerraMax Plus signage partially visible, energetic atmosphere, realistic hands, documentary style photography --ar 4:5 --style raw --v 6.1"
+      }
+    ],
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   },
@@ -151,22 +182,81 @@ const campaignData = [
     id: "mayo",
     name: "Mayo", short: "May", order: 5,
     priority: "alta", hot: true, mundial: false,
-    theme: "Mamá + Trabajo + Maestros",
-    status: "pendiente", notas: "",
+    theme: "Apertura + Mamá + Día del Trabajo",
+    status: "pendiente",
+    notas: "Apertura tentativa 8 mayo. Semana 1 depende de confirmación. Tener copy alternativo sin fecha exacta.",
     fechas: [
       { d: "1 May",  label: "Día del Trabajo", c: "orange" },
+      { d: "~8 May", label: "Apertura tentativa", c: "red" },
       { d: "10 May", label: "Día de la Madre", c: "red" },
-      { d: "15 May", label: "Día del Maestro", c: "blue" },
-      { d: "Var.",   label: "Corpus Christi", c: "gray" }
+      { d: "15 May", label: "Día del Maestro", c: "blue" }
     ],
     trending: [
       { tag: "10 de Mayo MX", title: "\"La mamá que sí sabe arreglar el boiler\"", desc: "TENDENCIA ENORME EN MEXICO. Mamá empoderada que no espera al plomero. Viral garantizado." },
       { tag: "Día del Trabajo viral", title: "Tributo al trabajador manual mexicano", desc: "Video documental corto. Alta resonancia emocional." }
     ],
-    concepto: "10 de Mayo es el mes más importante en México. Campaña dual: la mamá que usa herramientas + el trabajador que trabaja para su mamá.",
+    concepto: "Mayo es el mes estrella: apertura HerraMax Plus (tentativo 8 mayo) + Día del Trabajo + Día de la Madre. 4 campañas semanales: 2 de marca/conversión y 2 educativas. Máxima inversión.",
     copia: "\"10 de Mayo: para la mamá que no espera que nadie lo arregle. Para la mamá que lo hace ella. 💪❤️ #MamáHerraMax #DíaDeLaMadre\"",
     prompt: "hyperrealistic photo of a proud mexican mother smiling, holding a cordless drill, wearing casual clothes, modern mexican kitchen background being renovated, realistic 5 fingers on both hands, warm natural light, no deformations --ar 4:5 --style raw --v 6.1",
     imagenUrl: "",
+    publicaciones: [
+      {
+        semana: 1,
+        tipo: "conversion",
+        titulo: "¡Abrimos! — Lanzamiento oficial HerraMax Plus",
+        concepto: "Campaña de conversión dura para la apertura. Objetivo: que los primeros clientes entren el día 1. Oferta de lanzamiento exclusiva para los primeros en llegar. Si la fecha no está confirmada, usar copy alternativo de apertura inminente.",
+        formato: "Reel + Imagen",
+        copy: {
+          instagram: "¡YA ABRIMOS! 🔶🔧\n\nHerraMax Plus ya está en Puebla.\nHerramientas profesionales. Precio justo. Atención de verdad.\n\n📍 [Dirección]\n🕘 Horario: [horario]\n\nLos primeros 50 clientes reciben descuento especial 👇\n\n#HerraMaxPlus #YaAbrimos #Puebla #Herramientas #Lanzamiento",
+          facebook: "🎉 ¡HerraMax Plus ya abrió sus puertas en Puebla!\n\n✅ Herramientas eléctricas y manuales\n✅ Equipos de protección personal\n✅ Asesoría técnica sin costo\n✅ Precio justo, sin pretextos\n\n📍 [Dirección completa]\n📞 [Teléfono]\n\nComparte para que tus compas del gremio se enteren. 🔧\n\n#HerraMaxPlus #Puebla #YaAbrimos",
+          tiktok: "¡POR FIN ABRIMOS en Puebla! 🎉🔶\n\n[Video: apertura de puertas, equipo sonriendo, herramientas en exhibición]\n[Texto: \"Herramientas pro. Precio justo. YA ESTAMOS AQUÍ\"]\n\nEtiqueta a quien le urge saber esto 👇\n\n#HerraMaxPlus #Puebla #Lanzamiento #Fyp"
+        },
+        hashtags: ["#HerraMaxPlus", "#YaAbrimos", "#Puebla", "#Lanzamiento", "#Herramientas"],
+        prompt: "exciting grand opening photo of a professional tool store in Puebla Mexico, HerraMax Plus orange and black signage, team of smiling workers in branded uniforms, crowded entrance, celebratory atmosphere, realistic people, photorealistic --ar 4:5 --style raw --v 6.1"
+      },
+      {
+        semana: 2,
+        tipo: "educativo",
+        titulo: "¿Sierra de calar o circular? — Contenido educativo",
+        concepto: "Contenido educativo de alto valor que engancha a principiantes y refuerza autoridad de marca. Explicamos la diferencia entre dos herramientas que la gente confunde. Formato carrusel: cada slide una diferencia clave. Genera guardados y compartidos orgánicos.",
+        formato: "Carrusel educativo",
+        copy: {
+          instagram: "¿Sierra de calar o circular? Muchos las confunden y eligen mal 🪚\n\nDesliza y aprende cuál necesitas 👉\n\n[Slide 1: Calar → cortes curvos, madera delgada, más control]\n[Slide 2: Circular → cortes rectos, madera gruesa, más velocidad]\n[Slide 3: ¿Cuál tienes en tu kit?]\n\nGuarda esto para cuando vayas a comprar 📌\n\n#HerraMaxPlus #TipsDeHerramientas #Carpintería",
+          facebook: "🪚 Uno de los errores más comunes: elegir la sierra equivocada.\n\nSierra de calar: ideal para cortes curvos y materiales delgados.\nSierra circular: potencia para cortes rectos en maderas gruesas.\n\n¿Cuál usas más tú? Cuéntanos en comentarios 👇\nY si no estás seguro, pásate a HerraMax Plus — te asesoramos sin costo.\n\n#HerraMaxPlus #TipsDeConstrucción #Carpintería",
+          tiktok: "La sierra que eliges define el trabajo que haces 🪚✨\n\n[Video: sierra de calar en corte curvo vs circular en madera gruesa]\n[Narración: explicación de 30 seg]\n\n¿Tú cuál prefieres? 👇\n\n#HerraMaxPlus #TipsDeHerramientas #Carpinteria #Fyp"
+        },
+        hashtags: ["#HerraMaxPlus", "#TipsDeHerramientas", "#Carpintería", "#EducaciónTécnica", "#AprendeConHerraMax"],
+        prompt: "clean educational split-screen photo, left showing jigsaw cutting curved wood, right showing circular saw cutting straight through thick lumber, professional workshop lighting, product photography style --ar 4:5 --style raw --v 6.1"
+      },
+      {
+        semana: 3,
+        tipo: "marca",
+        titulo: "Para la mamá que construye — 10 de Mayo",
+        concepto: "La campaña de marca más importante del mes. Día de la Madre desde la perspectiva HerraMax: la mamá empoderada que no espera al plomero. Contenido emocional + mensaje de marca. Máxima inversión en boosting.",
+        formato: "Imagen + Reel emocional",
+        copy: {
+          instagram: "Para la mamá que no espera a que nadie lo arregle.\nQue toma el taladro y lo hace ella.\nQue construye su casa, su vida, su camino.\n\nHoy es tu día, mamá. 💪❤️\n\nHerraMax Plus te celebra como mereces.\n\n#DíaDeLaMadre #MamáConstructora #HerraMaxPlus #10deMayo",
+          facebook: "❤️ 10 de Mayo — Para todas las mamás que construyen.\n\nPara la que arregló el fregadero sin llamar a nadie.\nPara la que pintó el cuarto de los niños un sábado.\nPara la que siempre tiene la solución.\n\nEsa mamá merece las mejores herramientas.\nFeliz Día de las Madres. 🌸🔧\n\n#DíaDeLaMadre #10deMayo #HerraMaxPlus",
+          tiktok: "Para la mamá que lo arregla todo sin pedir ayuda ❤️🔧\n\n[Video emotivo: mamá usando herramientas, construyendo]\n[Música: emotiva y suave]\n[Texto: \"Feliz Día de las Madres, mamá constructora\"]\n\nEtiqueta a esa mamá que lo puede todo 👇\n\n#DíaDeLaMadre #10deMayo #HerraMaxPlus #Fyp"
+        },
+        hashtags: ["#DíaDeLaMadre", "#10deMayo", "#HerraMaxPlus", "#MamáConstructora", "#MamáEmpoderada"],
+        prompt: "hyperrealistic emotional photo of a proud mexican mother in her 40s holding a cordless drill with a warm confident smile, casual home clothes, renovated mexican kitchen background, warm golden light, realistic 5 fingers on both hands, no deformations --ar 4:5 --style raw --v 6.1"
+      },
+      {
+        semana: 4,
+        tipo: "educativo",
+        titulo: "5 errores que arruinan tus herramientas eléctricas",
+        concepto: "Contenido educativo de alto valor y alto alcance. Los errores que todos cometen y nadie admite. Genera interacción (comentarios de quien se identifica), guardados masivos y compartidos. Posiciona a HerraMax Plus como autoridad técnica en Puebla.",
+        formato: "Reel de tips / Carrusel",
+        copy: {
+          instagram: "5 errores que están dañando tus herramientas eléctricas 🛑🔧\n\n1️⃣ Guardarlas con polvo o aserrín\n2️⃣ Forzarlas más allá de su capacidad\n3️⃣ No engrasar las partes móviles\n4️⃣ Usar brocas desafiladas\n5️⃣ Cargar la batería hasta que se agote al 0%\n\n¿Cuántos haces? 👇 Guarda este post 📌\n\n#HerraMaxPlus #TipsDeHerramientas #MantenimientoPreventivo",
+          facebook: "🛑 Si haces alguno de estos 5 errores, estás acortando la vida de tus herramientas:\n\n✗ Guardarlas sucias — el polvo destruye rodamientos\n✗ Forzarlas al tope — el motor se quema\n✗ No lubricar — genera fricción y calor\n✗ Brocas sin filo — obliga al motor a trabajar doble\n✗ Agotar batería al 0% — daña las celdas de litio\n\nComparte con quien lo necesite. En HerraMax Plus te asesoramos sin costo.\n\n#HerraMaxPlus #MantenimientoPreventivo",
+          tiktok: "5 errores que arruinan tus herramientas y nadie te dijo 🛑🔧\n\n[Video mostrando cada error y su solución]\n[Narración en voz: tono de experto amigable]\n\nComenta cuál error haces 👇 sin vergüenza\n\n#HerraMaxPlus #TipsDeHerramientas #Aprendizaje #Fyp"
+        },
+        hashtags: ["#HerraMaxPlus", "#TipsDeHerramientas", "#MantenimientoPreventivo", "#HerramientasEléctricas", "#AprendeConHerraMax"],
+        prompt: "clean instructional comparison photo, damaged power drill with visible burn marks next to a new identical drill in perfect condition, professional tool photography, dark background, orange accent lighting, no people visible --ar 4:5 --style raw --v 6.1"
+      }
+    ],
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   },
