@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HerraMax Plus — Seed Firebase DB</title>
+<style>
+  body { font-family: monospace; background: #0D0D0D; color: #C8C5BE; padding: 2rem; }
+  h1 { color: #E07B0A; margin-bottom: 1rem; font-size: 18px; }
+  .log { background: #141414; padding: 1rem; border-radius: 8px; min-height: 200px; font-size: 13px; line-height: 1.8; }
+  .ok   { color: #97C459; }
+  .err  { color: #F09595; }
+  .info { color: #85B7EB; }
+  button {
+    background: #E07B0A; color: #fff; border: none;
+    padding: 10px 24px; border-radius: 6px; font-size: 14px;
+    cursor: pointer; margin-bottom: 1.5rem; font-family: monospace;
+  }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .warn { background: rgba(224,123,10,0.15); border: 1px solid rgba(224,123,10,0.3); border-radius: 6px; padding: 12px 16px; margin-bottom: 1.5rem; font-size: 13px; color: #FF9A2E; }
+</style>
+</head>
+<body>
+<h1>⚙️ HerraMax Plus — Seed Firestore Database</h1>
+<div class="warn">
+  ⚠️ Este archivo se ejecuta UNA SOLA VEZ para poblar la base de datos.<br>
+  Reemplaza los valores de <strong>firebaseConfig</strong> con los de tu proyecto antes de ejecutar.
+</div>
+<button id="seedBtn" onclick="runSeed()">Ejecutar Seed (12 meses)</button>
+<div class="log" id="log">Esperando...</div>
+
+<!-- Firebase SDK v9 Compat -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+<script>
+// ============================================================
+// ⚠️ REEMPLAZA ESTO CON TU CONFIG DE FIREBASE
+// Firebase Console → Proyecto → Configuración → Tu app web
+// ============================================================
+const firebaseConfig = {
+  apiKey:            "AIzaSyCFBPIBMMp92FmS25VRKMksocdFUL8dRfg",
+  authDomain:        "marketing-herramax-plus-2026.firebaseapp.com",
+  projectId:         "marketing-herramax-plus-2026",
+  storageBucket:     "marketing-herramax-plus-2026.firebasestorage.app",
+  messagingSenderId: "834498362799",
+  appId:             "1:834498362799:web:5f4cd82c9510c8816fc35a",
+  measurementId:     "G-RL71X7X16K"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function log(msg, type = "info") {
+  const el = document.getElementById("log");
+  el.innerHTML += `<span class="${type}">${msg}</span>\n`;
+  el.scrollTop = el.scrollHeight;
+}
+
+const campaignData = [
+  {
+    id: "enero",
+    name: "Enero", short: "Ene", order: 1,
+    priority: "media", hot: false, mundial: false,
+    theme: "Nuevo año, nuevos proyectos",
+    status: "pendiente",
+    notas: "",
+    fechas: [
+      { d: "1 Ene", label: "Año Nuevo", c: "orange" },
+      { d: "6 Ene", label: "Reyes Magos", c: "blue" },
+      { d: "3er lun", label: "Día del Albañil", c: "orange" }
+    ],
+    trending: [
+      { tag: "Año nuevo meme", title: "\"Propósito 2026: por fin terminar esa remodelación\"", desc: "Contenido relatable de proyectos pendientes. Video de obra abandonada que cobra vida." },
+      { tag: "Dry January", title: "Enero sin excusas — sí para la obra", desc: "Todos hacen propósitos, el trabajador de la construcción ya los cumple." }
+    ],
+    concepto: "Serie de Reyes: regala herramientas, no ilusiones. Pack de regalo HerraMax para el trabajador que se lo merece.",
+    copia: "\"Este Reyes, el mejor regalo no tiene arco ni moño. Tiene potencia, precisión y el logo que conoces. 🔧 #HerraMaxPlus #ArtesanosMexicanos\"",
+    prompt: "hyperrealistic photo of a mexican construction worker holding brand new power tools as a gift, wearing a black HerraMax Plus branded t-shirt, sunrise golden light, Puebla Mexico urban background, no deformed fingers, natural hand pose, photorealistic --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "febrero",
+    name: "Febrero", short: "Feb", order: 2,
+    priority: "media", hot: false, mundial: false,
+    theme: "San Valentín para los que trabajan duro",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "14 Feb", label: "Día del Amor", c: "red" },
+      { d: "11 Feb", label: "Día del Plomero", c: "orange" },
+      { d: "1 Feb",  label: "Temp. Seca", c: "gray" }
+    ],
+    trending: [
+      { tag: "Super Bowl LX", title: "La final más vista del mundo — sube al trending", desc: "Post reactivo el lunes post-Super Bowl. «Nosotros trabajamos aunque sea domingo de Super Bowl»" },
+      { tag: "San Valentín anti-romántico", title: "\"Mi herramienta favorita tampoco me decepciona\"", desc: "Humor seco. El trabajador que le regala herramientas. Contenido viral comprobado." }
+    ],
+    concepto: "Campaña 14F para el Día del Plomero (11 Feb). Doble fecha, doble impacto. El plomero que recibe amor en su día.",
+    copia: "\"11 de febrero: el día que el plomero merece el aplauso. ¿Cuándo fue la última vez que le agradeciste al tuyo? 🔩 #DíaDelPlomero #HerraMaxPlus\"",
+    prompt: "cinematic photo of a happy plumber giving a thumbs up, holding HerraMax branded wrench, wearing black uniform with logo, warm indoor lighting, realistic hands with 5 fingers, no deformations, photorealistic portrait --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "marzo",
+    name: "Marzo", short: "Mar", order: 3,
+    priority: "alta", hot: true, mundial: false,
+    theme: "Mujeres que construyen + Primavera",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "8 Mar",  label: "Día de la Mujer", c: "red" },
+      { d: "20 Mar", label: "Inicio Primavera", c: "green" },
+      { d: "21 Mar", label: "Natalicio Juárez", c: "gray" }
+    ],
+    trending: [
+      { tag: "8M viral", title: "Mujeres en la construcción — historia real", desc: "Contenido auténtico de electricistas, albañilas, plomeras. Altísimo reach orgánico." },
+      { tag: "Primavera home renovation", title: "Temporada de remodelaciones — content masivo", desc: "Inicio de temporada de obra. Tips, tutoriales, herramientas. Pico en YouTube." }
+    ],
+    concepto: "8M: campaña de visibilización de mujeres artesanas y constructoras reales. UGC (contenido de usuarias reales). Primavera: lanzamiento de línea de temporada.",
+    copia: "\"Ellas también construyen este país. Con las mismas herramientas, con el doble de fuerza. 👷‍♀️ #MujeresQueConstructen #HerraMaxPlus #8M\"",
+    prompt: "hyperrealistic photo of a strong mexican woman electrician, professional work uniform with HerraMax Plus logo patch, holding electrical tools naturally, confident expression, construction site background Mexico, realistic 5 fingers, no deformations, warm natural light --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "abril",
+    name: "Abril", short: "Abr", order: 4,
+    priority: "alta", hot: true, mundial: false,
+    theme: "Semana Santa + back to projects",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "2-5 Abr", label: "Semana Santa", c: "blue" },
+      { d: "30 Abr",  label: "Día del Niño", c: "green" },
+      { d: "14 Abr",  label: "Reanudación obras", c: "orange" }
+    ],
+    trending: [
+      { tag: "Semana Santa meme", title: "\"El descanso VS los proyectos pendientes\"", desc: "Semana Santa = días libres = oportunidad de avanzar la remodelación. Humor super relatable." },
+      { tag: "Día del Niño", title: "\"De grande quiero ser como mi papá\"", desc: "Contenido emotivo. Niños imitando a sus padres. Alto engagement emocional." }
+    ],
+    concepto: "Semana Santa como oportunidad: el trabajador aprovecha el puente. Día del Niño: contenido familiar/emocional.",
+    copia: "\"Semana Santa tiene 7 días. Suficiente para ese proyecto que llevas meses posponiendo. 🔨 #SemanaDeAvance #HerraMaxPlus\"",
+    prompt: "heartwarming photo of a father and young son working together on a home project, father wearing HerraMax Plus black t-shirt, son with small toy tools imitating dad, mexican home interior, warm golden hour light, realistic hands, photorealistic --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "mayo",
+    name: "Mayo", short: "May", order: 5,
+    priority: "alta", hot: true, mundial: false,
+    theme: "Mamá + Trabajo + Maestros",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "1 May",  label: "Día del Trabajo", c: "orange" },
+      { d: "10 May", label: "Día de la Madre", c: "red" },
+      { d: "15 May", label: "Día del Maestro", c: "blue" },
+      { d: "Var.",   label: "Corpus Christi", c: "gray" }
+    ],
+    trending: [
+      { tag: "10 de Mayo MX", title: "\"La mamá que sí sabe arreglar el boiler\"", desc: "TENDENCIA ENORME EN MEXICO. Mamá empoderada que no espera al plomero. Viral garantizado." },
+      { tag: "Día del Trabajo viral", title: "Tributo al trabajador manual mexicano", desc: "Video documental corto. Alta resonancia emocional." }
+    ],
+    concepto: "10 de Mayo es el mes más importante en México. Campaña dual: la mamá que usa herramientas + el trabajador que trabaja para su mamá.",
+    copia: "\"10 de Mayo: para la mamá que no espera que nadie lo arregle. Para la mamá que lo hace ella. 💪❤️ #MamáHerraMax #DíaDeLaMadre\"",
+    prompt: "hyperrealistic photo of a proud mexican mother smiling, holding a cordless drill, wearing casual clothes, modern mexican kitchen background being renovated, realistic 5 fingers on both hands, warm natural light, no deformations --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "junio",
+    name: "Junio", short: "Jun", order: 6,
+    priority: "alta", hot: true, mundial: true,
+    theme: "Papás + Mundial FIFA 2026 en México",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "11 Jun", label: "INICIO MUNDIAL 2026", c: "red" },
+      { d: "13 Jun", label: "Día del Carpintero", c: "orange" },
+      { d: "21 Jun", label: "Día del Padre", c: "blue" }
+    ],
+    trending: [
+      { tag: "FIFA World Cup 2026", title: "MUNDIAL EN MEXICO — máxima oportunidad del año", desc: "México es sede. Combina fútbol + herramientas. «El mejor gol es un trabajo bien hecho»." },
+      { tag: "Día del Padre viral", title: "\"El papá que te enseñó a usar el desarmador\"", desc: "Contenido emotivo-nostálgico. El papá que enseña el oficio. Altísimo engagement." }
+    ],
+    concepto: "MES ESTRELLA. Mundial 2026 en México + Día del Padre + Día del Carpintero. Triple combinación. Máxima inversión publicitaria del año.",
+    copia: "\"Este junio hay dos razones para celebrar: el Mundial en casa y el papá que te enseñó todo. ⚽🔧 #HerraMaxPlus #DíaDelPadre #Mundial2026\"",
+    prompt: "cinematic hyperrealistic photo of a proud mexican father in HerraMax Plus uniform, standing in front of a TV showing World Cup 2026, arm around teenage son, mexican living room, celebratory atmosphere, realistic hands and fingers, warm lighting --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "julio",
+    name: "Julio", short: "Jul", order: 7,
+    priority: "media", hot: false, mundial: false,
+    theme: "Calor, verano y obras a tope",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "19 Jul", label: "Final Mundial 2026", c: "red" },
+      { d: "Jul",    label: "Calor máximo", c: "orange" },
+      { d: "Var.",   label: "Vacaciones escolares", c: "green" }
+    ],
+    trending: [
+      { tag: "Final del Mundial", title: "«Nosotros sí llegamos a la final de cada obra»", desc: "Reactive content el día de la final. El trabajador como campeón. Viral por timing." },
+      { tag: "Summer renovation TikTok", title: "Tutorial season — tips de obra en verano", desc: "Temporada alta de tutoriales. Cómo trabajar bajo el sol. Hidratación, seguridad." }
+    ],
+    concepto: "Cierre del Mundial + temporada de calor. Serie de tutoriales en video para TikTok/Reels. El trabajador que no descansa.",
+    copia: "\"42 grados. Obra avanzando. Herramienta fría. Nosotros nunca paramos. ☀️🔧 #HerraMaxPlus #ObraEnVerano\"",
+    prompt: "realistic photo of a sweating mexican construction worker taking a water break, wearing HerraMax Plus black t-shirt, summer construction site background, sun flare effect, realistic 5 fingers, professional photography style --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "agosto",
+    name: "Agosto", short: "Ago", order: 8,
+    priority: "alta", hot: true, mundial: false,
+    theme: "Regreso a clases + fin de vacaciones",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "Ago", label: "Regreso a clases", c: "blue" },
+      { d: "Ago", label: "Reanudación obras", c: "orange" },
+      { d: "Ago", label: "Temporada escolar", c: "green" }
+    ],
+    trending: [
+      { tag: "Back to school", title: "El papá que trabaja duro para que sus hijos estudien", desc: "Historia emotiva. El trabajador financiando la educación de sus hijos. Lágrimas garantizadas." },
+      { tag: "Uniforme meme viral", title: "\"Mi uniforme de trabajo vs el de mis hijos\"", desc: "Juego visual divertido y relatable. Viral comprobado en temporada escolar." }
+    ],
+    concepto: "Regreso a clases desde la perspectiva del trabajador. Campaña emocional de sacrificio y orgullo familiar.",
+    copia: "\"Ellos entran al salón. Tú entras a la obra. Los dos están construyendo algo grande. 📚🔧 #RegresoAClases #HerraMaxPlus\"",
+    prompt: "emotional hyperrealistic photo, split concept: left side mexican child in school uniform smiling, right side father in HerraMax Plus work uniform with tools, warm golden light, family pride concept, realistic proportions and hands --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "septiembre",
+    name: "Septiembre", short: "Sep", order: 9,
+    priority: "alta", hot: true, mundial: false,
+    theme: "Fiestas Patrias — orgullo mexicano",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "15 Sep", label: "Grito de Independencia", c: "red" },
+      { d: "16 Sep", label: "Día de Independencia", c: "green" },
+      { d: "Var.",   label: "Día del Mecánico", c: "orange" }
+    ],
+    trending: [
+      { tag: "15 de Septiembre trending", title: "\"Construido en México\" — orgullo nacional", desc: "Campaña 100% mexicanidad. El artesano mexicano como símbolo patrio." },
+      { tag: "Día del Mecánico MX", title: "El héroe sin capa con aceite en las manos", desc: "Contenido de tributo. Muy compartido por mecánicos y sus clientes." }
+    ],
+    concepto: "El mes más patriótico del año. Orgullo nacional con colores verde, blanco y rojo sobre el naranja HerraMax.",
+    copia: "\"Hecho en México por manos mexicanas. El mejor material de este país es su gente. 🇲🇽🔧 #OrgulloMexicano #HerraMaxPlus\"",
+    prompt: "patriotic hyperrealistic photo of proud mexican construction worker holding mexican flag and HerraMax Plus tools, wearing black HerraMax branded uniform, Zocalo Mexico City background with green white red lights, realistic hands 5 fingers, dramatic lighting --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "octubre",
+    name: "Octubre", short: "Oct", order: 10,
+    priority: "media", hot: false, mundial: false,
+    theme: "Halloween + humor de oficio",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "12 Oct", label: "Día de la Raza", c: "gray" },
+      { d: "31 Oct", label: "Halloween", c: "orange" },
+      { d: "Oct",    label: "Fin temp. lluvias", c: "blue" }
+    ],
+    trending: [
+      { tag: "Halloween viral 2026", title: "\"El disfraz más aterrador: el cliente que no paga\"", desc: "Humor negro de oficio. Los miedos del trabajador manual. Meme + reel. Altísimo reach." },
+      { tag: "Balenciaga-style meme", title: "Subirse al trending de lujo absurdo", desc: "Presentar una herramienta básica como objeto de lujo. Humor inteligente al estilo bolsa amarilla." }
+    ],
+    concepto: "Halloween = humor de oficio. Los miedos reales del trabajador: clientes malos pagadores, el detallito que nunca es detallito.",
+    copia: "\"El verdadero terror no es Halloween. Es el cliente que dice 'solo es un detallito'. 👻🔧 #HerraMaxPlus #HalloweenDeOficio\"",
+    prompt: "funny halloween style photo of mexican worker in HerraMax Plus uniform looking scared at a tiny crack in a wall labeled solo es un detallito, dramatic horror movie lighting, exaggerated expression, realistic hands 5 fingers, photorealistic --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "noviembre",
+    name: "Noviembre", short: "Nov", order: 11,
+    priority: "alta", hot: true, mundial: false,
+    theme: "Día de Muertos + El Buen Fin",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "1-2 Nov", label: "Día de Muertos", c: "orange" },
+      { d: "~20 Nov", label: "El Buen Fin", c: "red" },
+      { d: "20 Nov",  label: "Revolución Mexicana", c: "gray" }
+    ],
+    trending: [
+      { tag: "Día de Muertos viral", title: "Ofrenda al trabajador — tributo emotivo", desc: "Máximo impacto emocional. La ofrenda del artesano. Altísimo engagement orgánico." },
+      { tag: "El Buen Fin 2026", title: "DESCUENTOS MASIVOS — campaña de ventas dura", desc: "El Black Friday mexicano. Máxima inversión en ads pagados." }
+    ],
+    concepto: "Doble campaña: Día de Muertos (emocional) + Buen Fin (ventas y descuentos). Solo 3 semanas de diferencia — planificar desde septiembre.",
+    copia: "\"Buen Fin HerraMax: las mejores herramientas al precio que mereces. Sin letra chiquita. Sin detallitos. 🛠️ #BuenFin2026 #HerraMaxPlus\"",
+    prompt: "beautiful day of the dead style portrait of construction worker in the style of Mexican Dia de Muertos ofrenda, HerraMax Plus tools arranged as offerings, marigold flowers, colorful mexican decorations, artistic but respectful, detailed realistic --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "diciembre",
+    name: "Diciembre", short: "Dic", order: 12,
+    priority: "alta", hot: true, mundial: false,
+    theme: "Navidad + Posadas + cierre de año",
+    status: "pendiente", notas: "",
+    fechas: [
+      { d: "12 Dic",   label: "Día de Guadalupe", c: "red" },
+      { d: "16-24 Dic",label: "Posadas", c: "orange" },
+      { d: "25 Dic",   label: "Navidad", c: "green" },
+      { d: "31 Dic",   label: "Fin de año", c: "blue" }
+    ],
+    trending: [
+      { tag: "Navidad emotiva MX", title: "\"La posada del gremio\" — trabajadores celebrando juntos", desc: "El calor humano de los que trabajaron todo el año. Comunidad y pertenencia." },
+      { tag: "Cierre circular", title: "\"El proyecto que prometiste en enero\"", desc: "Humor de cierre de año. Meme circular que conecta con enero. Viral asegurado." }
+    ],
+    concepto: "Diciembre = emoción máxima. Posadas del gremio, aguinaldo del trabajador, regalos en herramientas. Cierre con campaña de gratitud.",
+    copia: "\"Gracias a los que no pararon. A los que trabajaron bajo el sol de julio y el frío de diciembre. Feliz Navidad de parte de HerraMax Plus. 🎄🔧\"",
+    prompt: "warm christmas photo of a group of diverse mexican construction workers having a posada party, all wearing HerraMax Plus black t-shirts, festive lights and decorations, tamales and ponche visible, joyful expressions, realistic proportions --ar 4:5 --style raw --v 6.1",
+    imagenUrl: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  }
+];
+
+async function runSeed() {
+  const btn = document.getElementById("seedBtn");
+  btn.disabled = true;
+  const logEl = document.getElementById("log");
+  logEl.innerHTML = "";
+
+  log("🚀 Iniciando seed de base de datos HerraMax Plus 2026...\n", "info");
+
+  // config real — marketing-herramax-plus-2026
+    btn.disabled = false;
+    return;
+
+  let ok = 0;
+  for (const mes of campaignData) {
+    try {
+      const { id, ...data } = mes;
+      await db.collection("herramax_2026").doc(id).set(data);
+      log(`✓ ${mes.name} — guardado correctamente`, "ok");
+      ok++;
+      await new Promise(r => setTimeout(r, 120));
+    } catch (err) {
+      log(`✗ Error en ${mes.name}: ${err.message}`, "err");
+    }
+  }
+
+  // Config global
+  try {
+    await db.collection("config").doc("settings").set({
+      campaignYear: 2026,
+      brandName: "HerraMax Plus",
+      brandColors: { primary: "#E07B0A", secondary: "#0D0D0D" },
+      socialNetworks: ["instagram", "facebook", "tiktok"],
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    log("✓ config/settings — guardado correctamente", "ok");
+  } catch(e) {
+    log(`✗ Error en config: ${e.message}`, "err");
+  }
+
+  log(`\n✅ Seed completado: ${ok}/12 meses cargados en Firestore.`, "ok");
+  log("   Ahora puedes abrir admin.html para gestionar la campaña.", "info");
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>

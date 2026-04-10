@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Campaña de Marketing HerraMax Plus 2026 — estrategia mensual completa.">
+<title>HerraMax Plus — Campaña Marketing 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#E07B0A;--orange-dim:#9E5500;--orange-glow:#FF9A2E;
+  --black:#0D0D0D;--surface:#141414;--surface-2:#1C1C1C;--surface-3:#242424;
+  --line:rgba(255,255,255,0.08);--line-md:rgba(255,255,255,0.14);
+  --t1:#F2F0EA;--t2:#A09D96;--t3:#5E5C58;
+  --r:6px;--rl:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--t1);font-family:'Barlow',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px;
+  background:rgba(13,13,13,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.08em}
+.nav-logo span{color:var(--orange)}
+.nav-tag{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:0.12em}
+.nav-cta{
+  font-size:11px;text-transform:uppercase;letter-spacing:0.1em;
+  color:var(--orange);border:1px solid var(--orange-dim);
+  padding:6px 14px;border-radius:var(--r);text-decoration:none;transition:background 0.2s;
+}
+.nav-cta:hover{background:rgba(224,123,10,0.12)}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 2.5rem 4rem;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 60% 50% at 80% 40%,rgba(224,123,10,0.12) 0%,transparent 65%),
+             radial-gradient(ellipse 40% 60% at 10% 80%,rgba(224,123,10,0.06) 0%,transparent 60%),var(--black);
+}
+.hero-grid{
+  position:absolute;inset:0;z-index:0;opacity:0.04;
+  background-image:linear-gradient(var(--t1) 1px,transparent 1px),linear-gradient(90deg,var(--t1) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-label{
+  position:relative;z-index:1;
+  font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:var(--orange);
+  margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;
+}
+.hero-label::before{content:'';display:block;width:32px;height:1px;background:var(--orange)}
+.hero-title{
+  position:relative;z-index:1;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,12vw,160px);line-height:0.92;letter-spacing:0.02em;
+}
+.hero-title em{font-style:normal;color:var(--orange)}
+.hero-sub{position:relative;z-index:1;font-size:16px;font-weight:300;color:var(--t2);margin-top:1.5rem;max-width:480px;line-height:1.7}
+.hero-stats{position:relative;z-index:1;display:flex;gap:2.5rem;margin-top:3rem;flex-wrap:wrap}
+.stat{border-left:2px solid var(--orange);padding-left:14px}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1}
+.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--t3);margin-top:2px}
+.hero-scroll{
+  position:absolute;bottom:2rem;right:2.5rem;z-index:1;
+  font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--t3);
+  writing-mode:vertical-rl;display:flex;align-items:center;gap:10px;
+}
+.hero-scroll::after{content:'';display:block;width:1px;height:48px;background:linear-gradient(to bottom,var(--t3),transparent)}
+
+/* SECTIONS */
+.section{padding:5rem 2.5rem;border-top:1px solid var(--line)}
+.section-header{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:3rem;flex-wrap:wrap}
+.section-num{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--orange);letter-spacing:0.14em}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:0.04em}
+.section-desc{font-size:14px;color:var(--t2);max-width:540px;line-height:1.7;margin-left:auto}
+
+/* MONTH TABS */
+.month-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:2.5rem}
+.month-tab{
+  font-size:12px;text-transform:uppercase;letter-spacing:0.1em;padding:6px 14px;
+  background:transparent;color:var(--t3);border:1px solid var(--line);border-radius:var(--r);
+  cursor:pointer;font-family:'Barlow',sans-serif;transition:all 0.18s;position:relative;
+}
+.month-tab:hover{color:var(--t2);border-color:var(--line-md)}
+.month-tab.active{background:var(--orange);color:#fff;border-color:var(--orange);font-weight:600}
+.hot-pip{position:absolute;top:4px;right:4px;width:5px;height:5px;border-radius:50%;background:#E24B4A}
+
+/* SKELETON */
+.skeleton{background:var(--surface-2);border-radius:var(--r);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:0.8}}
+
+/* PANEL */
+.month-panel{display:none}
+.month-panel.visible{display:block;animation:fadeUp 0.3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.panel-hero{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1rem;margin-bottom:2rem}
+.panel-month-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,8vw,88px);line-height:1;letter-spacing:0.04em}
+.panel-theme{font-size:14px;color:var(--t2);margin-top:6px;font-weight:300}
+.priority-pill{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;padding:5px 12px;border-radius:20px;font-weight:600;white-space:nowrap;margin-top:8px}
+.p-alta{background:rgba(226,75,74,0.15);color:#F09595;border:1px solid rgba(226,75,74,0.3)}
+.p-media{background:rgba(224,123,10,0.15);color:var(--orange-glow);border:1px solid rgba(224,123,10,0.3)}
+.mundial-banner{
+  background:linear-gradient(90deg,rgba(224,123,10,0.2),rgba(224,123,10,0.05));
+  border:1px solid rgba(224,123,10,0.35);border-radius:var(--rl);
+  padding:12px 18px;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:12px;
+  font-size:13px;font-weight:500;color:var(--orange-glow);
+}
+.card-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rl);padding:1.25rem 1.5rem}
+.card-label{font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--t3);font-weight:600;margin-bottom:10px}
+.chip{display:inline-block;font-size:11px;padding:3px 9px;border-radius:4px;margin:2px 2px 2px 0;font-weight:500}
+.chip-orange{background:rgba(224,123,10,0.15);color:var(--orange-glow)}
+.chip-red{background:rgba(226,75,74,0.12);color:#F09595}
+.chip-blue{background:rgba(55,138,221,0.12);color:#85B7EB}
+.chip-green{background:rgba(99,153,34,0.12);color:#97C459}
+.chip-gray{background:rgba(136,135,128,0.15);color:var(--t2)}
+.trending-item{border-left:2px solid var(--orange-dim);padding:10px 14px;margin-bottom:10px;background:var(--surface-2);border-radius:0 var(--r) var(--r) 0}
+.trending-tag{font-size:10px;color:var(--orange);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
+.trending-title{font-size:13px;font-weight:500}
+.trending-desc{font-size:12px;color:var(--t2);margin-top:3px;line-height:1.55}
+.copy-box{
+  background:var(--surface-2);border:1px dashed rgba(255,255,255,0.1);border-radius:var(--r);
+  padding:14px 16px;font-size:13px;font-style:italic;line-height:1.7;cursor:pointer;
+  transition:border-color 0.2s;position:relative;margin-top:8px;
+}
+.copy-box:hover{border-color:var(--orange-dim)}
+.copy-btn{
+  position:absolute;top:8px;right:10px;font-size:10px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--t3);background:var(--surface-3);border:none;
+  border-radius:4px;padding:3px 8px;cursor:pointer;font-family:'Barlow',sans-serif;
+}
+.copy-btn:hover{color:var(--orange)}
+.prompt-box{background:#080808;border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:14px 16px;position:relative}
+.prompt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prompt-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#555;font-weight:600}
+.prompt-pills{display:flex;gap:6px}
+.prompt-pill{font-size:10px;padding:2px 8px;border-radius:4px;background:#1a1a1a;color:#666;border:1px solid #222}
+.prompt-text{font-family:'Courier New',monospace;font-size:12px;color:#C8C5BE;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.prompt-copy{
+  display:inline-flex;align-items:center;gap:5px;margin-top:12px;
+  font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#555;
+  background:#111;border:1px solid #222;border-radius:4px;padding:5px 12px;
+  cursor:pointer;font-family:'Barlow',sans-serif;transition:all 0.15s;
+}
+.prompt-copy:hover{color:var(--orange);border-color:var(--orange-dim)}
+
+/* PILLARS */
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2.5rem}
+.pillar{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--orange);border-radius:0 0 var(--rl) var(--rl);padding:1.25rem}
+.pillar-icon{font-size:22px;margin-bottom:10px}
+.pillar-title{font-size:13px;font-weight:600;margin-bottom:6px}
+.pillar-desc{font-size:12px;color:var(--t2);line-height:1.6}
+
+/* TOOLS */
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tool-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rl);padding:1.25rem;transition:border-color 0.2s}
+.tool-card:hover{border-color:var(--orange-dim)}
+.tool-cat{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:10px}
+.tool-name{font-size:16px;font-weight:600;margin-bottom:4px}
+.tool-use{font-size:12px;color:var(--t2);line-height:1.5}
+.tool-badge{display:inline-block;margin-top:10px;font-size:10px;padding:3px 8px;border-radius:4px;background:rgba(224,123,10,0.12);color:var(--orange-glow);text-transform:uppercase;letter-spacing:0.08em}
+
+/* WORKFLOW */
+.workflow{display:flex;flex-wrap:wrap}
+.wf-step{flex:1;min-width:140px;background:var(--surface);padding:1.25rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.wf-step:first-child{border-left:1px solid var(--line);border-radius:var(--rl) 0 0 var(--rl)}
+.wf-step:last-child{border-radius:0 var(--rl) var(--rl) 0}
+.wf-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--surface-3);margin-bottom:6px}
+.wf-tool{font-size:12px;color:var(--orange);font-weight:600;margin-bottom:4px}
+.wf-desc{font-size:12px;color:var(--t2);line-height:1.5}
+
+/* FOOTER */
+footer{padding:3rem 2.5rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.08em}
+.footer-logo span{color:var(--orange)}
+.footer-note{font-size:12px;color:var(--t3)}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--surface-3);border:1px solid var(--orange-dim);color:var(--t1);font-size:12px;text-transform:uppercase;letter-spacing:0.1em;padding:10px 20px;border-radius:var(--r);opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* LOADING SPINNER */
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--line-md);border-top-color:var(--orange);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:768px){
+  nav{padding:0 1.25rem}.nav-tag{display:none}
+  .hero{padding:0 1.25rem 3rem}.section{padding:3.5rem 1.25rem}
+  .card-grid-2{grid-template-columns:1fr}.pillars{grid-template-columns:1fr 1fr}
+  .tools-grid{grid-template-columns:1fr}.workflow{flex-direction:column}
+  .wf-step{min-width:unset;border-radius:0!important;border-left:1px solid var(--line)!important}
+  .wf-step:first-child{border-radius:var(--rl) var(--rl) 0 0!important}
+  .wf-step:last-child{border-radius:0 0 var(--rl) var(--rl)!important}
+  .panel-hero{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){
+  .pillars{grid-template-columns:1fr}.hero-stats{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">HERRA<span>MAX</span> PLUS</div>
+  <div class="nav-tag">Campaña Marketing 2026</div>
+  <a href="#calendario" class="nav-cta">Ver Calendario</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <p class="hero-label">Estrategia Anual · México + Mundial</p>
+  <h1 class="hero-title">CAMPAÑA<br><em>2026</em></h1>
+  <p class="hero-sub">Plan editorial completo para HerraMax Plus: 12 meses de contenido, trending hooks, copy listo y prompts de imagen optimizados.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Meses de estrategia</div></div>
+    <div class="stat"><div class="stat-num">36+</div><div class="stat-label">Conceptos de campaña</div></div>
+    <div class="stat"><div class="stat-num">24</div><div class="stat-label">Prompts de imagen</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-label">Mundial en México</div></div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<section class="section reveal" id="estrategia">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Pilares de Contenido</h2>
+    <p class="section-desc">Cuatro ejes que guían toda la comunicación de HerraMax Plus durante 2026.</p>
+  </div>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-icon">&#128736;</div><div class="pillar-title">Orgullo de oficio</div><div class="pillar-desc">El trabajador mexicano como héroe cotidiano. Dignidad del trabajo manual.</div></div>
+    <div class="pillar"><div class="pillar-icon">&#128514;</div><div class="pillar-title">Humor relatable</div><div class="pillar-desc">Memes y situaciones reales del gremio. El "detallito", el cliente difícil, la obra sin fin.</div></div>
+    <div class="pillar"><div class="pillar-icon">&#10024;</div><div class="pillar-title">Trending reactivo</div><div class="pillar-desc">Subirse a tendencias mundiales con identidad propia. Al estilo Balenciaga yellow bag.</div></div>
+    <div class="pillar"><div class="pillar-icon">&#10084;</div><div class="pillar-title">Contenido emocional</div><div class="pillar-desc">Mamá, papá, hijos. El sacrificio que mueve familias. Alto engagement garantizado.</div></div>
+  </div>
+</section>
+
+<section class="section reveal" id="calendario">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Calendario Editorial</h2>
+    <p class="section-desc" id="calDesc"><span class="spinner"></span>Cargando desde Firebase...</p>
+  </div>
+  <div class="month-tabs" id="monthTabs"></div>
+  <div id="monthPanels"></div>
+</section>
+
+<section class="section reveal" id="herramientas">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Stack de IA Recomendado</h2>
+    <p class="section-desc">Las herramientas correctas para cada etapa de producción.</p>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-card"><div class="tool-cat">Estrategia &amp; Copy</div><div class="tool-name">Claude + ChatGPT-4o</div><div class="tool-use">Calendarios editoriales, copy, prompts y brief de campaña.</div><span class="tool-badge">Cerebro</span></div>
+    <div class="tool-card"><div class="tool-cat">Imagen fotorrealista</div><div class="tool-name">Midjourney v6.1</div><div class="tool-use">La mejor calidad fotorrealista. Manos naturales con --style raw.</div><span class="tool-badge">Recomendado</span></div>
+    <div class="tool-card"><div class="tool-cat">Manos perfectas</div><div class="tool-name">Flux Pro 1.1</div><div class="tool-use">Excelente para manos y dedos realistas. Vía Replicate o Fal.ai.</div><span class="tool-badge">Manos</span></div>
+    <div class="tool-card"><div class="tool-cat">Logo &amp; composición</div><div class="tool-name">Adobe Firefly</div><div class="tool-use">Integrado en Photoshop. Insertar el logo HerraMax en alta resolución.</div><span class="tool-badge">Logo</span></div>
+    <div class="tool-card"><div class="tool-cat">Video &amp; Reels</div><div class="tool-name">Runway Gen-3</div><div class="tool-use">Calidad cinematográfica para Reels e Instagram.</div><span class="tool-badge">Video</span></div>
+    <div class="tool-card"><div class="tool-cat">Texto en imagen</div><div class="tool-name">Ideogram 2.0</div><div class="tool-use">El mejor para imágenes con texto integrado. Ideal para memes y anuncios.</div><span class="tool-badge">Texto</span></div>
+  </div>
+</section>
+
+<section class="section reveal" id="workflow">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Flujo de Producción</h2>
+    <p class="section-desc">Del concepto a la publicación en 5 pasos.</p>
+  </div>
+  <div class="workflow">
+    <div class="wf-step"><div class="wf-num">01</div><div class="wf-tool">Claude</div><div class="wf-desc">Estrategia mensual + concepto + copy</div></div>
+    <div class="wf-step"><div class="wf-num">02</div><div class="wf-tool">Claude</div><div class="wf-desc">Prompt optimizado: manos realistas, estilo, composición</div></div>
+    <div class="wf-step"><div class="wf-num">03</div><div class="wf-tool">Midjourney / Flux</div><div class="wf-desc">Generación de imagen en alta resolución</div></div>
+    <div class="wf-step"><div class="wf-num">04</div><div class="wf-tool">Adobe Firefly</div><div class="wf-desc">Inserción del logo HerraMax en calidad original</div></div>
+    <div class="wf-step"><div class="wf-num">05</div><div class="wf-tool">Runway / CapCut</div><div class="wf-desc">Animación para Reels, TikTok y Stories</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">HERRA<span>MAX</span> PLUS</div>
+  <div class="footer-note">Campaña de Marketing 2026 · Generado con Claude (Anthropic)</div>
+  <div class="footer-note">Puebla, México · Todos los derechos reservados</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDK v10 -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
+// ============================================================
+// ⚠️ REEMPLAZA CON TU CONFIG DE FIREBASE
+// Firebase Console → tu proyecto → Configuración → Tu app web
+// ============================================================
+const firebaseConfig = {
+  apiKey:            "AIzaSyCFBPIBMMp92FmS25VRKMksocdFUL8dRfg",
+  authDomain:        "marketing-herramax-plus-2026.firebaseapp.com",
+  projectId:         "marketing-herramax-plus-2026",
+  storageBucket:     "marketing-herramax-plus-2026.firebasestorage.app",
+  messagingSenderId: "834498362799",
+  appId:             "1:834498362799:web:5f4cd82c9510c8816fc35a",
+  measurementId:     "G-RL71X7X16K"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const chipC = {orange:"chip-orange",red:"chip-red",blue:"chip-blue",green:"chip-green",gray:"chip-gray"};
+
+function toast(msg){
+  const el=document.getElementById("toast");
+  el.textContent=msg;el.classList.add("show");
+  setTimeout(()=>el.classList.remove("show"),2000);
+}
+function copyText(txt){
+  navigator.clipboard.writeText(txt).then(()=>toast("Copiado")).catch(()=>toast("Selecciona manualmente"));
+}
+
+async function loadCalendar() {
+  try {
+    const snap = await db.collection("herramax_2026").orderBy("order").get();
+    const months = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    document.getElementById("calDesc").textContent = "Haz clic en un mes para ver la estrategia completa. Los puntos rojos son meses de alta prioridad.";
+    buildCalendar(months);
+  } catch(e) {
+    document.getElementById("calDesc").innerHTML = `<span style="color:#F09595">Error al cargar Firebase: ${e.message}. Revisa tu firebaseConfig.</span>`;
+  }
+}
+
+function buildCalendar(months) {
+  const tabsEl   = document.getElementById("monthTabs");
+  const panelsEl = document.getElementById("monthPanels");
+  tabsEl.innerHTML = "";
+  panelsEl.innerHTML = "";
+
+  months.forEach((m, i) => {
+    // TAB
+    const tab = document.createElement("button");
+    tab.className = "month-tab" + (i===0?" active":"");
+    tab.innerHTML = m.short + (m.hot ? '<span class="hot-pip"></span>' : "");
+    tab.onclick = () => {
+      document.querySelectorAll(".month-tab").forEach(t=>t.classList.remove("active"));
+      document.querySelectorAll(".month-panel").forEach(p=>p.classList.remove("visible"));
+      tab.classList.add("active");
+      document.getElementById("panel-"+i).classList.add("visible");
+    };
+    tabsEl.appendChild(tab);
+
+    // PANEL
+    const chips = (m.fechas||[]).map(f=>`<span class="chip ${chipC[f.c]||''}">${f.d} — ${f.label}</span>`).join("");
+    const trendHtml = (m.trending||[]).map(t=>`
+      <div class="trending-item">
+        <div class="trending-tag">${t.tag}</div>
+        <div class="trending-title">${t.title}</div>
+        <div class="trending-desc">${t.desc}</div>
+      </div>`).join("");
+    const copiaEsc = (m.copia||'').replace(/'/g,"&#39;");
+    const promptEsc = (m.prompt||'').replace(/'/g,"&#39;");
+
+    const panel = document.createElement("div");
+    panel.className = "month-panel"+(i===0?" visible":"");
+    panel.id = "panel-"+i;
+    panel.innerHTML = `
+      <div class="panel-hero">
+        <div>
+          <div class="panel-month-name">${m.name} 2026</div>
+          <div class="panel-theme">${m.theme||''}</div>
+        </div>
+        <span class="priority-pill p-${m.priority||'media'}">${m.priority==='alta'?'Prioridad alta':'Prioridad media'}</span>
+      </div>
+      ${m.mundial?`<div class="mundial-banner">&#9917; MUNDIAL FIFA 2026 — México es sede. Máxima oportunidad del año para HerraMax Plus.</div>`:""}
+      ${m.imagenUrl?`<div style="margin-bottom:12px"><img src="${m.imagenUrl}" alt="Imagen campaña ${m.name}" style="width:100%;max-height:300px;object-fit:cover;border-radius:var(--rl);"></div>`:""}
+      <div class="card-grid-2" style="margin-bottom:12px">
+        <div class="card">
+          <div class="card-label">Fechas clave</div>
+          <div style="margin-top:4px">${chips}</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Concepto de campaña</div>
+          <p style="font-size:13px;color:var(--t2);line-height:1.65;margin-top:4px">${m.concepto||''}</p>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-label">Trending hooks — cómo subirse a la ola</div>
+        <div style="margin-top:8px">${trendHtml}</div>
+      </div>
+      <div class="card-grid-2">
+        <div class="card">
+          <div class="card-label">Copy sugerido para redes sociales</div>
+          <div class="copy-box">
+            <button class="copy-btn" onclick="copyText('${copiaEsc}')">Copiar</button>
+            ${m.copia||''}
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label">Prompt para Midjourney v6.1 / Flux Pro</div>
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-lbl">Optimizado — manos realistas</span>
+              <div class="prompt-pills"><span class="prompt-pill">Midjourney</span><span class="prompt-pill">Flux Pro</span></div>
+            </div>
+            <div class="prompt-text">${m.prompt||''}</div>
+            <button class="prompt-copy" onclick="copyText('${promptEsc}')">&#128203; Copiar prompt</button>
+          </div>
+        </div>
+      </div>
+      ${m.notas?`<div style="margin-top:12px;padding:12px 16px;background:var(--surface-2);border-radius:var(--r);border-left:2px solid var(--orange-dim);font-size:12px;color:var(--t2)"><strong style="color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:0.1em">Notas</strong><br>${m.notas}</div>`:""}
+    `;
+    panelsEl.appendChild(panel);
+  });
+}
+
+// REVEAL
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");observer.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+loadCalendar();
+</script>
+</body>
+</html>
