@@ -224,25 +224,21 @@ nav{
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
 <script>
+// Mismo proyecto Firebase que Compras-HerraMax-Plus
+// (paocarvajal.github.io ya está en dominios autorizados)
 const firebaseConfig = {
-  apiKey: "AIzaSyCFBPIBMMp92FmS25VRKMksocdFUL8dRfg",
-  authDomain: "marketing-herramax-plus-2026.firebaseapp.com",
-  projectId: "marketing-herramax-plus-2026",
-  storageBucket: "marketing-herramax-plus-2026.firebasestorage.app",
-  messagingSenderId: "834498362799",
-  appId: "1:834498362799:web:5f4cd82c9510c8816fc35a",
-  measurementId: "G-RL71X7X16K"
+  apiKey: "AIzaSyAa57ppjWFUcEdniw9WScABHssyACP3x3k",
+  authDomain: "compras-herramax.firebaseapp.com",
+  projectId: "compras-herramax",
+  storageBucket: "compras-herramax.firebasestorage.app",
+  messagingSenderId: "558573642669",
+  appId: "1:558573642669:web:f967def7deb883fa16b724"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db   = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
-
-const allowedEmails = [
-  "TU_CORREO@gmail.com",
-  "CORREO_COLABORADOR@gmail.com"
-];
 
 let allMonths = [];
 let currentId = null;
@@ -330,15 +326,7 @@ async function loginWithGoogle() {
   const errEl = document.getElementById("authErr");
   errEl.textContent = "";
   try {
-    const result = await auth.signInWithPopup(provider);
-    const email = (result.user && result.user.email) ? result.user.email.toLowerCase() : "";
-    const normalized = allowedEmails.map(e => e.toLowerCase());
-
-    if (!normalized.includes(email)) {
-      await auth.signOut();
-      errEl.textContent = "Tu correo no está autorizado para este panel.";
-      return;
-    }
+    await auth.signInWithPopup(provider);
   } catch (e) {
     errEl.textContent = "Error: " + e.message;
   }
@@ -346,15 +334,6 @@ async function loginWithGoogle() {
 
 auth.onAuthStateChanged(async user => {
   if (user) {
-    const email = (user.email || "").toLowerCase();
-    const normalized = allowedEmails.map(e => e.toLowerCase());
-
-    if (!normalized.includes(email)) {
-      await auth.signOut();
-      document.getElementById("authErr").textContent = "Tu correo no está autorizado para este panel.";
-      return;
-    }
-
     document.getElementById("authScreen").style.display = "none";
     document.getElementById("app").style.display = "block";
     document.getElementById("navUser").textContent = user.email;
