@@ -1,691 +1,484 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HerraMax Plus — Admin Panel 2026</title>
+<title>HerraMax Plus — Campaña Marketing 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --orange:#E07B0A;--orange-d:#9E5500;--orange-g:#FF9A2E;
-  --black:#0D0D0D;--s1:#141414;--s2:#1C1C1C;--s3:#242424;
+  --orange:#E07B0A;--orange-dim:#9E5500;--orange-glow:#FF9A2E;
+  --black:#0D0D0D;--surface:#141414;--s2:#1C1C1C;--s3:#242424;
   --line:rgba(255,255,255,0.08);--line2:rgba(255,255,255,0.14);
   --t1:#F2F0EA;--t2:#A09D96;--t3:#5E5C58;
   --r:6px;--rl:12px;
-  --ok:#97C459;--err:#F09595;--warn:#FF9A2E;--info:#85B7EB;
 }
-body{background:var(--black);color:var(--t1);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;min-height:100vh}
-
-/* AUTH SCREEN */
-.auth-screen{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse 60% 60% at 50% 40%,rgba(224,123,10,0.1),transparent),var(--black);
-}
-.auth-card{
-  background:var(--s1);border:1px solid var(--line2);border-radius:var(--rl);
-  padding:2.5rem;width:380px;
-}
-.auth-logo{font-size:22px;font-weight:700;letter-spacing:0.06em;margin-bottom:0.25rem}
-.auth-logo span{color:var(--orange)}
-.auth-sub{font-size:12px;color:var(--t3);margin-bottom:1.5rem;line-height:1.6}
-.auth-btn{
-  width:100%;background:var(--orange);color:#fff;border:none;border-radius:var(--r);
-  padding:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
-}
-.auth-btn:hover{background:var(--orange-g)}
-.auth-note{
-  margin-top:12px;font-size:12px;color:var(--t3);line-height:1.6
-}
-.auth-err{font-size:12px;color:var(--err);margin-top:0.75rem;text-align:center}
-
-/* APP */
-.app{display:none}
-nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(13,13,13,0.95);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-  display:flex;align-items:center;gap:1rem;padding:0 1.5rem;height:52px;
-}
-.nav-logo{font-size:16px;font-weight:700;letter-spacing:0.06em}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--t1);font-family:'Barlow',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:1rem;padding:0 2rem;height:56px;background:rgba(13,13,13,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.08em;flex-shrink:0}
 .nav-logo span{color:var(--orange)}
-.nav-sep{flex:1}
-.nav-user{font-size:12px;color:var(--t3)}
-.nav-out{
-  font-size:11px;padding:5px 12px;background:transparent;color:var(--t2);
-  border:1px solid var(--line2);border-radius:var(--r);cursor:pointer;font-family:inherit;
-}
-.nav-out:hover{color:var(--t1)}
-
-.layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 52px)}
-
-/* SIDEBAR */
-.sidebar{background:var(--s1);border-right:1px solid var(--line);padding:1rem}
-.sidebar-label{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--t3);margin:1rem 0 0.5rem;padding:0 0.5rem}
-.menu-link,.month-link{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:8px 10px;border-radius:var(--r);cursor:pointer;
-  font-size:13px;color:var(--t2);margin-bottom:2px;
-}
-.menu-link:hover,.month-link:hover{background:var(--s2);color:var(--t1)}
-.menu-link.active,.month-link.active{background:var(--s3);color:var(--t1);font-weight:600}
-.month-link .pip{width:6px;height:6px;border-radius:50%}
-.pip-alta{background:#E24B4A}.pip-media{background:var(--orange)}.pip-baja{background:var(--ok)}
-.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.dot-pendiente{background:var(--t3)}
-.dot-en_progreso{background:var(--warn)}
-.dot-publicado{background:var(--ok)}
-
-/* MAIN */
-.main{padding:1.5rem;overflow-y:auto}
-.main-header{
-  display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;
-}
-.main-title{font-size:24px;font-weight:700;letter-spacing:0.02em}
-.main-subtitle{font-size:12px;color:var(--t3);margin-top:3px}
-.status-select{
-  background:var(--s2);border:1px solid var(--line2);color:var(--t1);
-  border-radius:var(--r);padding:6px 10px;font-size:12px;font-family:inherit;cursor:pointer;
-}
-.save-btn{
-  background:var(--orange);color:#fff;border:none;border-radius:var(--r);
-  padding:8px 20px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;
-  margin-left:auto;
-}
-.save-btn:hover{background:var(--orange-g)}
-.save-btn:disabled{opacity:0.4;cursor:not-allowed}
-
-/* FIELDS */
-.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.field{background:var(--s1);border:1px solid var(--line);border-radius:var(--rl);padding:1rem 1.25rem}
-.field.full{grid-column:1/-1}
-.field-label{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--t3);margin-bottom:8px;font-weight:600}
-.field-input,.field-textarea,.field-select{
-  width:100%;background:var(--s2);border:1px solid var(--line2);
-  color:var(--t1);border-radius:var(--r);padding:10px 12px;
-  font-size:13px;font-family:inherit;line-height:1.6;
-}
-.field-input:focus,.field-textarea:focus,.field-select:focus{outline:none;border-color:var(--orange-d)}
-.field-textarea{resize:vertical;min-height:90px}
-
-/* PREVIEW */
-.prompt-preview,.tool-preview{
-  background:#080808;border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);
-  padding:12px;font-family:monospace;font-size:12px;color:#C8C5BE;
-  line-height:1.7;white-space:pre-wrap;word-break:break-word;margin-top:8px;
-}
-
-/* TRENDING EDITOR */
-.trending-row{
-  background:var(--s2);border:1px solid var(--line);border-radius:var(--r);
-  padding:10px;margin-bottom:8px;display:grid;gap:6px;
-}
-.trending-inputs{display:grid;grid-template-columns:1fr 2fr;gap:6px}
-.del-btn{
-  background:transparent;border:1px solid var(--line2);color:var(--err);
-  border-radius:var(--r);padding:4px 10px;font-size:11px;cursor:pointer;font-family:inherit;
-  align-self:start;justify-self:end;
-}
-.add-btn{
-  background:var(--s2);border:1px solid var(--line2);color:var(--t2);
-  border-radius:var(--r);padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;
-}
-.add-btn:hover{color:var(--t1)}
-
-/* FECHAS EDITOR */
-.fecha-row{display:grid;grid-template-columns:80px 1fr 80px auto;gap:6px;margin-bottom:6px;align-items:center}
-.chip-select{
-  background:var(--s2);border:1px solid var(--line2);color:var(--t1);
-  border-radius:var(--r);padding:7px 6px;font-size:12px;font-family:inherit;
-}
-
-/* TOOLS EDITOR */
+.nav-tag{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:0.12em}
+.nav-gap{flex:1}
+.nav-cta{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--orange);border:1px solid var(--orange-dim);padding:6px 14px;border-radius:var(--r);text-decoration:none;transition:background 0.2s;flex-shrink:0}
+.nav-cta:hover{background:rgba(224,123,10,0.12)}
+.nav-login{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--t3);border:1px solid var(--line2);padding:6px 14px;border-radius:var(--r);text-decoration:none;transition:all 0.2s;flex-shrink:0;display:flex;align-items:center;gap:5px}
+.nav-login:hover{color:var(--t1);border-color:var(--t3)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2.5rem 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 60% 50% at 80% 40%,rgba(224,123,10,0.12),transparent 65%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(224,123,10,0.06),transparent 60%),var(--black)}
+.hero-grid{position:absolute;inset:0;z-index:0;opacity:0.04;background-image:linear-gradient(var(--t1) 1px,transparent 1px),linear-gradient(90deg,var(--t1) 1px,transparent 1px);background-size:60px 60px}
+.hero-label{position:relative;z-index:1;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:var(--orange);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.hero-label::before{content:'';display:block;width:32px;height:1px;background:var(--orange)}
+.hero-title{position:relative;z-index:1;font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,12vw,160px);line-height:0.92;letter-spacing:0.02em}
+.hero-title em{font-style:normal;color:var(--orange)}
+.hero-sub{position:relative;z-index:1;font-size:16px;font-weight:300;color:var(--t2);margin-top:1.5rem;max-width:480px;line-height:1.7}
+.hero-stats{position:relative;z-index:1;display:flex;gap:2.5rem;margin-top:3rem;flex-wrap:wrap}
+.stat{border-left:2px solid var(--orange);padding-left:14px}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1}
+.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--t3);margin-top:2px}
+.hero-scroll{position:absolute;bottom:2rem;right:2.5rem;z-index:1;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--t3);writing-mode:vertical-rl;display:flex;align-items:center;gap:10px}
+.hero-scroll::after{content:'';display:block;width:1px;height:48px;background:linear-gradient(to bottom,var(--t3),transparent)}
+.section{padding:5rem 2.5rem;border-top:1px solid var(--line)}
+.section-header{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:3rem;flex-wrap:wrap}
+.section-num{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--orange);letter-spacing:0.14em}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:0.04em}
+.section-desc{font-size:14px;color:var(--t2);max-width:540px;line-height:1.7;margin-left:auto}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pillar{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--orange);border-radius:0 0 var(--rl) var(--rl);padding:1.25rem}
+.pillar-icon{font-size:22px;margin-bottom:10px}
+.pillar-title{font-size:13px;font-weight:600;margin-bottom:6px}
+.pillar-desc{font-size:12px;color:var(--t2);line-height:1.6}
+.month-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:2.5rem}
+.month-tab{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;padding:6px 14px;background:transparent;color:var(--t3);border:1px solid var(--line);border-radius:var(--r);cursor:pointer;font-family:'Barlow',sans-serif;transition:all 0.18s;position:relative}
+.month-tab:hover{color:var(--t2);border-color:var(--line2)}
+.month-tab.active{background:var(--orange);color:#fff;border-color:var(--orange);font-weight:600}
+.hot-pip{position:absolute;top:4px;right:4px;width:5px;height:5px;border-radius:50%;background:#E24B4A}
+.month-panel{display:none}
+.month-panel.visible{display:block;animation:fadeUp 0.3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.panel-hero{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1rem;margin-bottom:2rem}
+.panel-month-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,8vw,88px);line-height:1;letter-spacing:0.04em}
+.panel-theme{font-size:14px;color:var(--t2);margin-top:6px;font-weight:300}
+.priority-pill{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;padding:5px 12px;border-radius:20px;font-weight:600;white-space:nowrap;margin-top:8px}
+.p-alta{background:rgba(226,75,74,0.15);color:#F09595;border:1px solid rgba(226,75,74,0.3)}
+.p-media{background:rgba(224,123,10,0.15);color:var(--orange-glow);border:1px solid rgba(224,123,10,0.3)}
+.mundial-banner{background:linear-gradient(90deg,rgba(224,123,10,0.2),rgba(224,123,10,0.05));border:1px solid rgba(224,123,10,0.35);border-radius:var(--rl);padding:12px 18px;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:500;color:var(--orange-glow)}
+.card-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rl);padding:1.25rem 1.5rem}
+.card-label{font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--t3);font-weight:600;margin-bottom:10px}
+.chip{display:inline-block;font-size:11px;padding:3px 9px;border-radius:4px;margin:2px 2px 2px 0;font-weight:500}
+.chip-orange{background:rgba(224,123,10,0.15);color:var(--orange-glow)}
+.chip-red{background:rgba(226,75,74,0.12);color:#F09595}
+.chip-blue{background:rgba(55,138,221,0.12);color:#85B7EB}
+.chip-green{background:rgba(99,153,34,0.12);color:#97C459}
+.chip-gray{background:rgba(136,135,128,0.15);color:var(--t2)}
+.trending-item{border-left:2px solid var(--orange-dim);padding:10px 14px;margin-bottom:10px;background:var(--s2);border-radius:0 var(--r) var(--r) 0}
+.trending-tag{font-size:10px;color:var(--orange);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
+.trending-title{font-size:13px;font-weight:500}
+.trending-desc{font-size:12px;color:var(--t2);margin-top:3px;line-height:1.55}
+.copy-box{background:var(--s2);border:1px dashed rgba(255,255,255,0.1);border-radius:var(--r);padding:14px 16px;font-size:13px;font-style:italic;line-height:1.7;cursor:pointer;transition:border-color 0.2s;position:relative}
+.copy-box:hover{border-color:var(--orange-dim)}
+.copy-btn{position:absolute;top:8px;right:10px;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--t3);background:var(--s3);border:none;border-radius:4px;padding:3px 8px;cursor:pointer;font-family:'Barlow',sans-serif}
+.copy-btn:hover{color:var(--orange)}
+.prompt-box{background:#080808;border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:14px 16px}
+.prompt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prompt-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#555;font-weight:600}
+.prompt-pills{display:flex;gap:6px}
+.prompt-pill{font-size:10px;padding:2px 8px;border-radius:4px;background:#1a1a1a;color:#666;border:1px solid #222}
+.prompt-text{font-family:'Courier New',monospace;font-size:12px;color:#C8C5BE;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.prompt-copy{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#555;background:#111;border:1px solid #222;border-radius:4px;padding:5px 12px;cursor:pointer;font-family:'Barlow',sans-serif;transition:all 0.15s}
+.prompt-copy:hover{color:var(--orange);border-color:var(--orange-dim)}
+.pub-section{margin-top:2rem}
+.pub-section-header{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.06em;margin-bottom:1.25rem;display:flex;align-items:center;gap:12px}
+.pub-section-header::after{content:'';flex:1;height:1px;background:var(--line)}
+.pub-count{font-family:'Barlow',sans-serif;font-size:13px;font-weight:400;color:var(--t3)}
+.pub-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rl);margin-bottom:10px;overflow:hidden}
+.pub-header{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;border-bottom:1px solid transparent;transition:background 0.15s;user-select:none}
+.pub-header:hover{background:var(--s2)}
+.pub-card.open .pub-header{border-bottom-color:var(--line)}
+.pub-week{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:var(--orange);min-width:28px}
+.pub-title{font-size:13px;font-weight:600;flex:1;line-height:1.35}
+.tipo-badge{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;padding:3px 10px;border-radius:4px;font-weight:600;flex-shrink:0}
+.tipo-marca{background:rgba(224,123,10,0.15);color:var(--orange-glow);border:1px solid rgba(224,123,10,0.25)}
+.tipo-conversion{background:rgba(226,75,74,0.12);color:#F09595;border:1px solid rgba(226,75,74,0.2)}
+.tipo-educativo{background:rgba(55,138,221,0.12);color:#85B7EB;border:1px solid rgba(55,138,221,0.2)}
+.tipo-awareness{background:rgba(99,153,34,0.12);color:#97C459;border:1px solid rgba(99,153,34,0.2)}
+.pub-fmt{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--t3);flex-shrink:0}
+.pub-chevron{font-size:11px;color:var(--t3);transition:transform 0.2s;flex-shrink:0}
+.pub-card.open .pub-chevron{transform:rotate(180deg)}
+.pub-body{display:none;padding:16px 18px}
+.pub-card.open .pub-body{display:block}
+.pub-concepto{font-size:13px;color:var(--t2);line-height:1.65;padding:10px 14px;background:var(--s2);border-radius:var(--r);border-left:2px solid var(--orange-dim);margin-bottom:1rem}
+.plat-tabs{display:flex;gap:4px;margin-bottom:10px}
+.plat-tab{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;padding:4px 12px;background:transparent;color:var(--t3);border:1px solid var(--line);border-radius:var(--r);cursor:pointer;font-family:'Barlow',sans-serif;transition:all 0.15s}
+.plat-tab.active{background:var(--s3);color:var(--t1);border-color:var(--line2)}
+.plat-panel{display:none}
+.plat-panel.visible{display:block;animation:fadeUp 0.2s ease}
+.hash-row{margin-top:8px;font-size:12px;color:var(--orange-dim);line-height:1.8}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .tool-card{
-  background:var(--s1);border:1px solid var(--line);border-radius:var(--rl);
-  padding:1rem 1.25rem;margin-bottom:12px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--rl);
+  padding:1.25rem;
+  transition:border-color 0.2s,transform 0.2s;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
-.tool-card-header{
-  display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px
+.tool-card:hover{border-color:var(--orange-dim);transform:translateY(-2px)}
+.tool-cat{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:2px}
+.tool-name{font-size:16px;font-weight:600;margin-bottom:2px}
+.tool-use{font-size:12px;color:var(--t2);line-height:1.5}
+.tool-badge{display:inline-block;margin-top:6px;font-size:10px;padding:3px 8px;border-radius:4px;background:rgba(224,123,10,0.12);color:var(--orange-glow);text-transform:uppercase;letter-spacing:0.08em;align-self:flex-start}
+.tool-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tool-link-btn,.tool-copy-btn{
+  appearance:none;border:none;text-decoration:none;cursor:pointer;font-family:'Barlow',sans-serif;
+  font-size:10px;text-transform:uppercase;letter-spacing:0.1em;border-radius:4px;padding:8px 10px;transition:all 0.18s;
 }
-.tool-title{font-size:16px;font-weight:700}
-.tool-tag{
-  font-size:10px;text-transform:uppercase;letter-spacing:.1em;
-  color:var(--orange-glow);background:rgba(224,123,10,.12);
-  border:1px solid rgba(224,123,10,.24);border-radius:999px;padding:4px 8px
-}
-.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.note-box{
-  background:rgba(55,138,221,0.10);border:1px solid rgba(55,138,221,0.22);
-  color:#B8D4F1;border-radius:var(--r);padding:12px 14px;font-size:12px;line-height:1.6;margin-bottom:12px
-}
-
-/* TOAST */
-.toast{
-  position:fixed;bottom:1.5rem;right:1.5rem;
-  background:var(--s3);border:1px solid var(--orange-d);color:var(--t1);
-  font-size:12px;padding:10px 18px;border-radius:var(--r);
-  opacity:0;transition:opacity 0.25s;pointer-events:none;z-index:9999;
-}
+.tool-link-btn{background:rgba(224,123,10,0.12);color:var(--orange-glow);border:1px solid rgba(224,123,10,0.25)}
+.tool-link-btn:hover{background:rgba(224,123,10,0.18);border-color:rgba(224,123,10,0.45)}
+.tool-copy-btn{background:var(--s2);color:var(--t2);border:1px solid var(--line2)}
+.tool-copy-btn:hover{color:var(--t1);border-color:var(--orange-dim)}
+.workflow{display:flex;flex-wrap:wrap}
+.wf-step{flex:1;min-width:140px;background:var(--surface);padding:1.25rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.wf-step:first-child{border-left:1px solid var(--line);border-radius:var(--rl) 0 0 var(--rl)}
+.wf-step:last-child{border-radius:0 var(--rl) var(--rl) 0}
+.wf-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--s3);margin-bottom:6px}
+.wf-tool{font-size:12px;color:var(--orange);font-weight:600;margin-bottom:4px}
+.wf-desc{font-size:12px;color:var(--t2);line-height:1.5}
+footer{padding:3rem 2.5rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.08em}
+.footer-logo span{color:var(--orange)}
+.footer-note{font-size:12px;color:var(--t3)}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--s3);border:1px solid var(--orange-dim);color:var(--t1);font-size:12px;text-transform:uppercase;letter-spacing:0.1em;padding:10px 20px;border-radius:var(--r);opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:999}
 .toast.show{opacity:1}
-.toast.err{border-color:#A32D2D;color:var(--err)}
-
-/* LOADING */
-.loading{color:var(--t3);font-size:13px;padding:2rem}
-
-@media(max-width:900px){.tool-grid{grid-template-columns:1fr}}
-@media(max-width:700px){
-  .layout{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .field-grid{grid-template-columns:1fr}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--line2);border-top-color:var(--orange);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:768px){
+  nav{padding:0 1rem}.nav-tag{display:none}
+  .hero{padding:0 1.25rem 3rem}.section{padding:3.5rem 1.25rem}
+  .card-grid-2{grid-template-columns:1fr}.pillars{grid-template-columns:1fr 1fr}
+  .tools-grid{grid-template-columns:1fr}.workflow{flex-direction:column}
+  .wf-step{min-width:unset;border-radius:0!important;border-left:1px solid var(--line)!important}
+  .wf-step:first-child{border-radius:var(--rl) var(--rl) 0 0!important}
+  .wf-step:last-child{border-radius:0 0 var(--rl) var(--rl)!important}
+  .panel-hero{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){
+  .pillars{grid-template-columns:1fr}.hero-stats{gap:1.5rem}
+  .pub-fmt{display:none}
 }
 </style>
 </head>
 <body>
 
-<div class="auth-screen" id="authScreen">
-  <div class="auth-card">
-    <div class="auth-logo">HERRA<span>MAX</span> PLUS</div>
-    <div class="auth-sub">Panel de Administración · Campaña 2026<br>Acceso con cuenta Google autorizada</div>
-    <button class="auth-btn" onclick="loginWithGoogle()">Entrar con Google</button>
-    <div class="auth-note">Solo podrán entrar los correos autorizados en el código y en las reglas de Firestore.</div>
-    <div class="auth-err" id="authErr"></div>
+<nav>
+  <div class="nav-logo">HERRA<span>MAX</span> PLUS</div>
+  <div class="nav-tag">Campaña 2026</div>
+  <div class="nav-gap"></div>
+  <a href="#calendario" class="nav-cta">Calendario</a>
+  <a href="admin.html" class="nav-login">&#128100; Admin</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <p class="hero-label">Estrategia Anual · México + Mundial</p>
+  <h1 class="hero-title">CAMPAÑA<br><em>2026</em></h1>
+  <p class="hero-sub">Plan editorial completo: 12 meses, campañas semanales por plataforma, copy listo para Instagram, Facebook y TikTok.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Meses</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Campañas</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Plataformas</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-label">Mundial MX</div></div>
   </div>
-</div>
+  <div class="hero-scroll">Scroll</div>
+</section>
 
-<div class="app" id="app">
-  <nav>
-    <div class="nav-logo">HERRA<span>MAX</span> PLUS <span style="font-weight:400;color:var(--t3);font-size:12px;margin-left:6px">Admin</span></div>
-    <div class="nav-sep"></div>
-    <div class="nav-user" id="navUser"></div>
-    <button class="nav-out" onclick="logout()">Salir</button>
-  </nav>
-
-  <div class="layout">
-    <div class="sidebar">
-      <div class="sidebar-label">Panel</div>
-      <div class="menu-link active" id="menu-tools" onclick="selectToolsView()">
-        <span>Herramientas IA</span>
-        <span style="color:var(--info)">●</span>
-      </div>
-
-      <div class="sidebar-label">Meses 2026</div>
-      <div id="sidebarMonths"></div>
-    </div>
-
-    <div class="main" id="mainArea">
-      <div class="loading">Cargando panel...</div>
-    </div>
+<section class="section reveal" id="estrategia">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Pilares de Contenido</h2>
+    <p class="section-desc">Cuatro ejes que guían toda la comunicación de HerraMax Plus durante 2026.</p>
   </div>
-</div>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-icon">&#128736;</div><div class="pillar-title">Orgullo de oficio</div><div class="pillar-desc">El trabajador mexicano como héroe cotidiano. Dignidad del trabajo manual.</div></div>
+    <div class="pillar"><div class="pillar-icon">&#128514;</div><div class="pillar-title">Humor relatable</div><div class="pillar-desc">Memes y situaciones reales del gremio. El "detallito", el cliente difícil, la obra sin fin.</div></div>
+    <div class="pillar"><div class="pillar-icon">&#10024;</div><div class="pillar-title">Trending reactivo</div><div class="pillar-desc">Subirse a tendencias mundiales. Al estilo Balenciaga yellow bag.</div></div>
+    <div class="pillar"><div class="pillar-icon">&#10084;</div><div class="pillar-title">Contenido emocional</div><div class="pillar-desc">Mamá, papá, hijos. El sacrificio que mueve familias. Alto engagement garantizado.</div></div>
+  </div>
+</section>
+
+<section class="section reveal" id="calendario">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Calendario Editorial</h2>
+    <p class="section-desc" id="calDesc"><span class="spinner"></span>Cargando desde Firebase...</p>
+  </div>
+  <div class="month-tabs" id="monthTabs"></div>
+  <div id="monthPanels"></div>
+</section>
+
+<section class="section reveal" id="herramientas">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Stack de IA Recomendado</h2>
+    <p class="section-desc" id="toolsDesc">Cargando herramientas desde Firebase...</p>
+  </div>
+  <div class="tools-grid" id="toolsGrid"></div>
+</section>
+
+<section class="section reveal" id="workflow">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Flujo de Producción</h2>
+    <p class="section-desc">Del concepto a la publicación en 5 pasos.</p>
+  </div>
+  <div class="workflow">
+    <div class="wf-step"><div class="wf-num">01</div><div class="wf-tool">Claude</div><div class="wf-desc">Estrategia + concepto + copy por plataforma</div></div>
+    <div class="wf-step"><div class="wf-num">02</div><div class="wf-tool">Claude</div><div class="wf-desc">Prompt optimizado: manos realistas, estilo</div></div>
+    <div class="wf-step"><div class="wf-num">03</div><div class="wf-tool">Midjourney / Flux</div><div class="wf-desc">Generación de imagen en alta resolución</div></div>
+    <div class="wf-step"><div class="wf-num">04</div><div class="wf-tool">Adobe Firefly</div><div class="wf-desc">Inserción del logo HerraMax en calidad original</div></div>
+    <div class="wf-step"><div class="wf-num">05</div><div class="wf-tool">Runway / CapCut</div><div class="wf-desc">Animación para Reels, TikTok y Stories</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">HERRA<span>MAX</span> PLUS</div>
+  <div class="footer-note">Campaña de Marketing 2026 · Generado con Claude (Anthropic)</div>
+  <div class="footer-note">Puebla, México</div>
+</footer>
 
 <div class="toast" id="toast"></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-
 <script>
-// Mismo proyecto Firebase que Compras-HerraMax-Plus
-// (paocarvajal.github.io ya está en dominios autorizados)
-const firebaseConfig = {
-  apiKey: "AIzaSyAa57ppjWFUcEdniw9WScABHssyACP3x3k",
-  authDomain: "compras-herramax.firebaseapp.com",
-  projectId: "compras-herramax",
-  storageBucket: "compras-herramax.firebasestorage.app",
-  messagingSenderId: "558573642669",
-  appId: "1:558573642669:web:f967def7deb883fa16b724"
-};
-
+const firebaseConfig={apiKey:"AIzaSyAa57ppjWFUcEdniw9WScABHssyACP3x3k",authDomain:"compras-herramax.firebaseapp.com",projectId:"compras-herramax",storageBucket:"compras-herramax.firebasestorage.app",messagingSenderId:"558573642669",appId:"1:558573642669:web:f967def7deb883fa16b724"};
 firebase.initializeApp(firebaseConfig);
-const db   = firebase.firestore();
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
+const db=firebase.firestore();
 
-let allMonths = [];
-let currentId = null;
-let currentData = null;
-let currentView = "tools";
-let settingsData = null;
+const chipC={orange:"chip-orange",red:"chip-red",blue:"chip-blue",green:"chip-green",gray:"chip-gray"};
+const tipoClass={marca:"tipo-marca",conversion:"tipo-conversion",educativo:"tipo-educativo",awareness:"tipo-awareness"};
+const tipoLabel={marca:"Marca",conversion:"Conversión",educativo:"Educativo",awareness:"Awareness"};
+const platIcon={instagram:"📷",facebook:"💬",tiktok:"🎵"};
 
-const defaultTools = {
-  estrategia: {
-    name: "Claude + ChatGPT-4o",
-    badge: "Cerebro",
-    primaryLabel: "Abrir Claude",
-    primaryUrl: "https://claude.ai",
-    secondaryLabel: "Abrir ChatGPT",
-    secondaryUrl: "https://chatgpt.com",
-    prompt: "Actúa como estratega senior de marketing para HerraMax Plus en México. Genera una campaña mensual con objetivo, concepto creativo, 3 ideas de contenido, copy por plataforma, CTA comercial y una recomendación visual alineada al oficio, humor relatable y orgullo mexicano."
+const defaultToolMeta={
+  estrategia:{cat:"Estrategia & Copy",use:"Calendarios editoriales, copy por plataforma y brief de campaña."},
+  midjourney:{cat:"Imagen fotorrealista",use:"Calidad fotorrealista. Manos naturales con --style raw."},
+  flux:{cat:"Manos perfectas",use:"Excelente para manos y dedos realistas. Vía Replicate o Fal.ai."},
+  firefly:{cat:"Logo & composición",use:"Insertar el logo HerraMax en calidad original sobre imágenes IA."},
+  runway:{cat:"Video & Reels",use:"Calidad cinematográfica para Reels e Instagram."},
+  ideogram:{cat:"Texto en imagen",use:"El mejor para imágenes con texto integrado. Memes y anuncios."}
+};
+
+const defaultTools={
+  estrategia:{
+    name:"Claude + ChatGPT-4o",
+    badge:"Cerebro",
+    primaryLabel:"Abrir Claude",
+    primaryUrl:"https://claude.ai",
+    secondaryLabel:"Abrir ChatGPT",
+    secondaryUrl:"https://chatgpt.com",
+    prompt:"Actúa como estratega senior de marketing para HerraMax Plus en México. Genera una campaña mensual con objetivo, concepto creativo, 3 ideas de contenido, copy por plataforma, CTA comercial y una recomendación visual alineada al oficio, humor relatable y orgullo mexicano."
   },
-  midjourney: {
-    name: "Midjourney v6.1",
-    badge: "Recomendado",
-    primaryLabel: "Abrir herramienta",
-    primaryUrl: "https://www.midjourney.com",
-    secondaryLabel: "",
-    secondaryUrl: "",
-    prompt: "hyperrealistic mexican construction worker using professional tools, HerraMax Plus black and orange branding, realistic hands with 5 fingers, warm cinematic lighting, detailed textures, commercial photography, premium ad look, photorealistic --ar 4:5 --style raw --v 6.1"
+  midjourney:{
+    name:"Midjourney v6.1",
+    badge:"Recomendado",
+    primaryLabel:"Abrir herramienta",
+    primaryUrl:"https://www.midjourney.com",
+    secondaryLabel:"",
+    secondaryUrl:"",
+    prompt:"hyperrealistic mexican construction worker using professional tools, HerraMax Plus black and orange branding, realistic hands with 5 fingers, warm cinematic lighting, detailed textures, commercial photography, premium ad look, photorealistic --ar 4:5 --style raw --v 6.1"
   },
-  flux: {
-    name: "Flux Pro 1.1",
-    badge: "Manos",
-    primaryLabel: "Abrir Fal",
-    primaryUrl: "https://fal.ai",
-    secondaryLabel: "Abrir Replicate",
-    secondaryUrl: "https://replicate.com",
-    prompt: "photorealistic mexican worker portrait, realistic hands and fingers, HerraMax Plus branding, natural pose, sharp facial detail, warm commercial lighting, premium ad photography, vertical 4:5 composition"
+  flux:{
+    name:"Flux Pro 1.1",
+    badge:"Manos",
+    primaryLabel:"Abrir Fal",
+    primaryUrl:"https://fal.ai",
+    secondaryLabel:"Abrir Replicate",
+    secondaryUrl:"https://replicate.com",
+    prompt:"photorealistic mexican worker portrait, realistic hands and fingers, HerraMax Plus branding, natural pose, sharp facial detail, warm commercial lighting, premium ad photography, vertical 4:5 composition"
   },
-  firefly: {
-    name: "Adobe Firefly",
-    badge: "Logo",
-    primaryLabel: "Abrir herramienta",
-    primaryUrl: "https://firefly.adobe.com",
-    secondaryLabel: "",
-    secondaryUrl: "",
-    prompt: "Integra el logo de HerraMax Plus de forma natural sobre la imagen final, respetando perspectiva, sombras, iluminación, textura del material y look premium publicitario."
+  firefly:{
+    name:"Adobe Firefly",
+    badge:"Logo",
+    primaryLabel:"Abrir herramienta",
+    primaryUrl:"https://firefly.adobe.com",
+    secondaryLabel:"",
+    secondaryUrl:"",
+    prompt:"Integra el logo de HerraMax Plus de forma natural sobre la imagen final, respetando perspectiva, sombras, iluminación, textura del material y look premium publicitario."
   },
-  runway: {
-    name: "Runway Gen-3",
-    badge: "Video",
-    primaryLabel: "Abrir herramienta",
-    primaryUrl: "https://runwayml.com",
-    secondaryLabel: "",
-    secondaryUrl: "",
-    prompt: "Create a short cinematic vertical social media ad for HerraMax Plus using a realistic construction or workshop scene, subtle camera movement, warm light, premium commercial feel, smooth motion and strong branded closing frame."
+  runway:{
+    name:"Runway Gen-3",
+    badge:"Video",
+    primaryLabel:"Abrir herramienta",
+    primaryUrl:"https://runwayml.com",
+    secondaryLabel:"",
+    secondaryUrl:"",
+    prompt:"Create a short cinematic vertical social media ad for HerraMax Plus using a realistic construction or workshop scene, subtle camera movement, warm light, premium commercial feel, smooth motion and strong branded closing frame."
   },
-  ideogram: {
-    name: "Ideogram 2.0",
-    badge: "Texto",
-    primaryLabel: "Abrir herramienta",
-    primaryUrl: "https://ideogram.ai",
-    secondaryLabel: "",
-    secondaryUrl: "",
-    prompt: "Diseña una imagen publicitaria vertical 4:5 para HerraMax Plus con texto perfectamente legible en español, branding negro y naranja, composición limpia, alto contraste, estilo premium y enfoque comercial."
+  ideogram:{
+    name:"Ideogram 2.0",
+    badge:"Texto",
+    primaryLabel:"Abrir herramienta",
+    primaryUrl:"https://ideogram.ai",
+    secondaryLabel:"",
+    secondaryUrl:"",
+    prompt:"Diseña una imagen publicitaria vertical 4:5 para HerraMax Plus con texto perfectamente legible en español, branding negro y naranja, composición limpia, alto contraste, estilo premium y enfoque comercial."
   }
 };
 
-function toast(msg, isErr = false) {
-  const el = document.getElementById("toast");
-  el.textContent = msg;
-  el.className = "toast show" + (isErr ? " err" : "");
-  setTimeout(() => el.className = "toast", 2500);
+function toast(m){const e=document.getElementById("toast");e.textContent=m;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2000)}
+function copyText(t){navigator.clipboard.writeText(t).then(()=>toast("¡Copiado!")).catch(()=>toast("Selecciona manualmente"))}
+function escHtml(str){return String(str??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function escJs(str){return String(str??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\n/g,"\\n").replace(/\r/g,"")}
+
+function togglePub(header){header.closest(".pub-card").classList.toggle("open")}
+
+function switchPlat(btn,uid,plat){
+  const wrap=btn.closest(".plat-tabs");
+  wrap.querySelectorAll(".plat-tab").forEach(t=>t.classList.remove("active"));
+  btn.classList.add("active");
+  document.querySelectorAll(`[data-uid="${uid}"] .plat-panel`).forEach(p=>p.classList.remove("visible"));
+  const target=document.querySelector(`[data-uid="${uid}"] [data-plat="${plat}"]`);
+  if(target)target.classList.add("visible");
 }
 
-function esc(str){
-  return String(str ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
+function renderPub(pub,idx,monthId){
+  const uid=`p-${monthId}-${idx}`;
+  const tipo=pub.tipo||"marca";
+  const copy=pub.copy||{};
+  const plats=Object.keys(copy);
+  const platTabsHtml=plats.map((p,i)=>`<button class="plat-tab${i===0?" active":""}" onclick="switchPlat(this,'${uid}','${p}')">${platIcon[p]||""} ${p}</button>`).join("");
+  const platPanelsHtml=plats.map((p,i)=>{
+    const txt=escJs(copy[p]||"");
+    return `<div class="plat-panel${i===0?" visible":""}" data-plat="${p}"><div class="copy-box"><button class="copy-btn" onclick="event.stopPropagation();copyText('${txt}')">Copiar</button>${escHtml(copy[p]||"")}</div></div>`;
+  }).join("");
+  const hashHtml=(pub.hashtags||[]).join(" ");
+  const promptEsc=escJs(pub.prompt||"");
+  return `<div class="pub-card" id="${uid}">
+    <div class="pub-header" onclick="togglePub(this)">
+      <div class="pub-week">S${pub.semana||idx+1}</div>
+      <div class="pub-title">${escHtml(pub.titulo||"Campaña")}</div>
+      <span class="tipo-badge ${tipoClass[tipo]||"tipo-marca"}">${tipoLabel[tipo]||tipo}</span>
+      <span class="pub-fmt">${escHtml(pub.formato||"Reel")}</span>
+      <span class="pub-chevron">▼</span>
+    </div>
+    <div class="pub-body">
+      <div class="pub-concepto">${escHtml(pub.concepto||"")}</div>
+      <div class="card-label" style="margin-bottom:8px">Copy por plataforma</div>
+      <div class="plat-tabs" data-uid="${uid}">${platTabsHtml}</div>
+      <div data-uid="${uid}">${platPanelsHtml}</div>
+      ${hashHtml?`<div class="hash-row">${escHtml(hashHtml)}</div>`:""}
+      ${pub.prompt?`<div style="margin-top:14px"><div class="card-label" style="margin-bottom:8px">Prompt para imagen</div><div class="prompt-box"><div class="prompt-header"><span class="prompt-lbl">Midjourney v6.1 / Flux Pro</span><div class="prompt-pills"><span class="prompt-pill">--style raw</span></div></div><div class="prompt-text">${escHtml(pub.prompt)}</div><button class="prompt-copy" onclick="copyText('${promptEsc}')">📋 Copiar prompt</button></div></div>`:""}
+    </div>
+  </div>`;
 }
 
-function logout() {
-  auth.signOut();
+function renderTools(toolsRaw){
+  const tools={...defaultTools,...(toolsRaw||{})};
+  const order=["estrategia","midjourney","flux","firefly","runway","ideogram"];
+  const grid=document.getElementById("toolsGrid");
+  const desc=document.getElementById("toolsDesc");
+
+  desc.textContent="Herramientas conectadas desde Firebase. Puedes actualizar links y prompts base desde admin.html.";
+  grid.innerHTML=order.map(key=>{
+    const meta=defaultToolMeta[key]||{cat:"Herramienta",use:""};
+    const tool={...defaultTools[key],...(tools[key]||{})};
+    const promptSafe=escJs(tool.prompt||"");
+    const primary=tool.primaryUrl?`<a class="tool-link-btn" href="${escHtml(tool.primaryUrl)}" target="_blank" rel="noopener noreferrer">${escHtml(tool.primaryLabel||"Abrir")}</a>`:"";
+    const secondary=tool.secondaryUrl?`<a class="tool-link-btn" href="${escHtml(tool.secondaryUrl)}" target="_blank" rel="noopener noreferrer">${escHtml(tool.secondaryLabel||"Abrir")}</a>`:"";
+    return `<div class="tool-card">
+      <div class="tool-cat">${escHtml(meta.cat)}</div>
+      <div class="tool-name">${escHtml(tool.name||"Herramienta")}</div>
+      <div class="tool-use">${escHtml(meta.use)}</div>
+      <span class="tool-badge">${escHtml(tool.badge||"tool")}</span>
+      <div class="tool-actions">
+        ${primary}
+        ${secondary}
+        <button class="tool-copy-btn" type="button" onclick="copyText('${promptSafe}')">Copiar prompt base</button>
+      </div>
+    </div>`;
+  }).join("");
 }
 
-async function loginWithGoogle() {
-  const errEl = document.getElementById("authErr");
-  errEl.textContent = "";
-  try {
-    await auth.signInWithPopup(provider);
-  } catch (e) {
-    errEl.textContent = "Error: " + e.message;
-  }
-}
-
-auth.onAuthStateChanged(async user => {
-  if (user) {
-    document.getElementById("authScreen").style.display = "none";
-    document.getElementById("app").style.display = "block";
-    document.getElementById("navUser").textContent = user.email;
-    await loadAll();
-  } else {
-    document.getElementById("authScreen").style.display = "flex";
-    document.getElementById("app").style.display = "none";
-  }
-});
-
-async function loadAll() {
-  try {
-    const [monthsSnap, settingsSnap] = await Promise.all([
+async function loadSite(){
+  try{
+    const [monthsSnap, settingsSnap]=await Promise.all([
       db.collection("herramax_2026").orderBy("order").get(),
       db.collection("config").doc("settings").get()
     ]);
 
-    allMonths = monthsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-    const rawSettings = settingsSnap.exists ? settingsSnap.data() : {};
-    settingsData = {
-      ...rawSettings,
-      tools: {
-        ...defaultTools,
-        ...(rawSettings.tools || {})
-      }
-    };
-
-    renderSidebar();
-    selectToolsView();
-  } catch(e) {
-    document.getElementById("mainArea").innerHTML =
-      `<div class="loading" style="color:var(--err)">Error al cargar: ${esc(e.message)}</div>`;
+    const months=monthsSnap.docs.map(d=>({id:d.id,...d.data()}));
+    const settings=settingsSnap.exists?settingsSnap.data():{};
+    document.getElementById("calDesc").textContent="Selecciona un mes → despliega cada campaña para ver el copy por plataforma y los prompts.";
+    buildCalendar(months);
+    renderTools(settings.tools||null);
+  }catch(e){
+    document.getElementById("calDesc").innerHTML=`<span style="color:#F09595">Error Firebase: ${escHtml(e.message)}</span>`;
+    document.getElementById("toolsDesc").innerHTML=`<span style="color:#F09595">No se pudieron cargar las herramientas: ${escHtml(e.message)}</span>`;
+    renderTools(null);
   }
 }
 
-function renderSidebar() {
-  const el = document.getElementById("sidebarMonths");
-  el.innerHTML = "";
-  const statusDot = { pendiente:"dot-pendiente", en_progreso:"dot-en_progreso", publicado:"dot-publicado" };
+function buildCalendar(months){
+  const tabsEl=document.getElementById("monthTabs");
+  const panelsEl=document.getElementById("monthPanels");
+  tabsEl.innerHTML=panelsEl.innerHTML="";
+  months.forEach((m,i)=>{
+    const tab=document.createElement("button");
+    tab.className="month-tab"+(i===0?" active":"");
+    tab.innerHTML=escHtml(m.short||"Mes")+(m.hot?'<span class="hot-pip"></span>':"");
+    tab.onclick=()=>{
+      document.querySelectorAll(".month-tab").forEach(t=>t.classList.remove("active"));
+      document.querySelectorAll(".month-panel").forEach(p=>p.classList.remove("visible"));
+      tab.classList.add("active");
+      document.getElementById("panel-"+i).classList.add("visible");
+    };
+    tabsEl.appendChild(tab);
 
-  allMonths.forEach(m => {
-    const div = document.createElement("div");
-    div.className = "month-link" + (currentView === "month" && m.id === currentId ? " active" : "");
-    div.id = "slink-" + m.id;
-    div.onclick = () => selectMonth(m.id);
+    const chips=(m.fechas||[]).map(f=>`<span class="chip ${chipC[f.c]||""}">${escHtml(f.d)} — ${escHtml(f.label)}</span>`).join("");
+    const trends=(m.trending||[]).map(t=>`<div class="trending-item"><div class="trending-tag">${escHtml(t.tag)}</div><div class="trending-title">${escHtml(t.title)}</div><div class="trending-desc">${escHtml(t.desc)}</div></div>`).join("");
+    const copiaSafe=escJs(m.copia||"");
+    const promptSafe=escJs(m.prompt||"");
+    const pubs=(m.publicaciones||[]);
+    const pubsHtml=pubs.length?`<div class="pub-section"><div class="pub-section-header">Campañas semanales <span class="pub-count">${pubs.length} publicación${pubs.length!==1?"es":""}</span></div>${pubs.map((p,idx)=>renderPub(p,idx,m.id)).join("")}</div>`:"";
 
-    const pipClass =
-      m.priority === "alta" ? "pip-alta" :
-      m.priority === "baja" ? "pip-baja" : "pip-media";
-
-    const dotClass = statusDot[m.status || "pendiente"] || "dot-pendiente";
-
-    div.innerHTML = `
-      <div style="display:flex;align-items:center;gap:6px">
-        <div class="pip ${pipClass}"></div>
-        <span>${esc(m.name)}</span>
+    const panel=document.createElement("div");
+    panel.className="month-panel"+(i===0?" visible":"");
+    panel.id="panel-"+i;
+    panel.innerHTML=`
+      <div class="panel-hero">
+        <div><div class="panel-month-name">${escHtml(m.name)} 2026</div><div class="panel-theme">${escHtml(m.theme||"")}</div></div>
+        <span class="priority-pill p-${escHtml(m.priority||"media")}">${m.priority==="alta"?"Prioridad alta":"Prioridad media"}</span>
       </div>
-      <div class="status-dot ${dotClass}"></div>`;
-    el.appendChild(div);
+      ${m.mundial?`<div class="mundial-banner">⚽ MUNDIAL FIFA 2026 — México es sede. Máxima oportunidad del año.</div>`:""}
+      <div class="card-grid-2">
+        <div class="card"><div class="card-label">Fechas clave</div><div style="margin-top:4px">${chips}</div></div>
+        <div class="card"><div class="card-label">Estrategia del mes</div><p style="font-size:13px;color:var(--t2);line-height:1.65;margin-top:4px">${escHtml(m.concepto||"")}</p></div>
+      </div>
+      <div class="card" style="margin-bottom:12px"><div class="card-label">Trending hooks</div><div style="margin-top:8px">${trends}</div></div>
+      <div class="card-grid-2" style="margin-bottom:0">
+        <div class="card"><div class="card-label">Copy general del mes</div><div class="copy-box"><button class="copy-btn" onclick="copyText('${copiaSafe}')">Copiar</button>${escHtml(m.copia||"")}</div></div>
+        <div class="card"><div class="card-label">Prompt base del mes</div><div class="prompt-box" style="margin-top:8px"><div class="prompt-header"><span class="prompt-lbl">Midjourney / Flux Pro</span><div class="prompt-pills"><span class="prompt-pill">--style raw</span></div></div><div class="prompt-text">${escHtml(m.prompt||"")}</div><button class="prompt-copy" onclick="copyText('${promptSafe}')">📋 Copiar</button></div></div>
+      </div>
+      ${pubsHtml}
+      ${m.notas?`<div style="margin-top:1rem;padding:12px 16px;background:var(--s2);border-radius:var(--r);border-left:2px solid var(--orange-dim);font-size:12px;color:var(--t2)">${escHtml(m.notas)}</div>`:""}`;
+    panelsEl.appendChild(panel);
   });
-
-  syncSidebarActive();
 }
 
-function syncSidebarActive() {
-  document.getElementById("menu-tools").classList.toggle("active", currentView === "tools");
-  document.querySelectorAll(".month-link").forEach(l => l.classList.remove("active"));
-  if (currentView === "month" && currentId) {
-    const lnk = document.getElementById("slink-" + currentId);
-    if (lnk) lnk.classList.add("active");
-  }
-}
-
-function selectToolsView() {
-  currentView = "tools";
-  currentId = null;
-  currentData = null;
-  syncSidebarActive();
-  renderToolsEditor();
-}
-
-function selectMonth(id) {
-  currentView = "month";
-  currentId = id;
-  currentData = allMonths.find(m => m.id === id);
-  syncSidebarActive();
-  renderMonthEditor();
-}
-
-function renderToolsEditor() {
-  const t = settingsData?.tools || defaultTools;
-  const main = document.getElementById("mainArea");
-
-  main.innerHTML = `
-    <div class="main-header">
-      <div>
-        <div class="main-title">Herramientas IA</div>
-        <div class="main-subtitle">Edita links y prompts base del stack de IA</div>
-      </div>
-      <button class="save-btn" id="saveToolsBtn" onclick="saveTools()">Guardar herramientas</button>
-    </div>
-
-    <div class="note-box">
-      Esto se guarda en <strong>config/settings</strong> dentro de Firestore y lo consume <strong>index-firebase.html</strong>.
-    </div>
-
-    ${renderSingleToolEditor("estrategia", t.estrategia)}
-    ${renderSingleToolEditor("midjourney", t.midjourney)}
-    ${renderSingleToolEditor("flux", t.flux)}
-    ${renderSingleToolEditor("firefly", t.firefly)}
-    ${renderSingleToolEditor("runway", t.runway)}
-    ${renderSingleToolEditor("ideogram", t.ideogram)}
-  `;
-}
-
-function renderSingleToolEditor(key, data) {
-  const d = { ...defaultTools[key], ...(data || {}) };
-
-  return `
-    <div class="tool-card">
-      <div class="tool-card-header">
-        <div class="tool-title">${esc(d.name)}</div>
-        <div class="tool-tag">${esc(d.badge || "tool")}</div>
-      </div>
-
-      <div class="tool-grid">
-        <div class="field">
-          <div class="field-label">Nombre</div>
-          <input class="field-input" id="tool_${key}_name" value="${esc(d.name)}">
-        </div>
-
-        <div class="field">
-          <div class="field-label">Badge</div>
-          <input class="field-input" id="tool_${key}_badge" value="${esc(d.badge)}">
-        </div>
-
-        <div class="field">
-          <div class="field-label">Etiqueta botón principal</div>
-          <input class="field-input" id="tool_${key}_primaryLabel" value="${esc(d.primaryLabel)}">
-        </div>
-
-        <div class="field">
-          <div class="field-label">URL principal</div>
-          <input class="field-input" id="tool_${key}_primaryUrl" value="${esc(d.primaryUrl)}" placeholder="https://...">
-        </div>
-
-        <div class="field">
-          <div class="field-label">Etiqueta botón secundario</div>
-          <input class="field-input" id="tool_${key}_secondaryLabel" value="${esc(d.secondaryLabel)}" placeholder="Opcional">
-        </div>
-
-        <div class="field">
-          <div class="field-label">URL secundaria</div>
-          <input class="field-input" id="tool_${key}_secondaryUrl" value="${esc(d.secondaryUrl)}" placeholder="https://...">
-        </div>
-
-        <div class="field full">
-          <div class="field-label">Prompt base</div>
-          <textarea class="field-textarea" id="tool_${key}_prompt" style="min-height:120px" oninput="updateToolPreview('${key}')">${esc(d.prompt)}</textarea>
-          <div class="tool-preview" id="tool_${key}_preview">${esc(d.prompt)}</div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function updateToolPreview(key) {
-  const txt = document.getElementById(`tool_${key}_prompt`).value;
-  document.getElementById(`tool_${key}_preview`).textContent = txt;
-}
-
-async function saveTools() {
-  const btn = document.getElementById("saveToolsBtn");
-  btn.disabled = true;
-  btn.textContent = "Guardando...";
-
-  const keys = ["estrategia","midjourney","flux","firefly","runway","ideogram"];
-  const tools = {};
-
-  for (const key of keys) {
-    tools[key] = {
-      name: document.getElementById(`tool_${key}_name`).value.trim(),
-      badge: document.getElementById(`tool_${key}_badge`).value.trim(),
-      primaryLabel: document.getElementById(`tool_${key}_primaryLabel`).value.trim(),
-      primaryUrl: document.getElementById(`tool_${key}_primaryUrl`).value.trim(),
-      secondaryLabel: document.getElementById(`tool_${key}_secondaryLabel`).value.trim(),
-      secondaryUrl: document.getElementById(`tool_${key}_secondaryUrl`).value.trim(),
-      prompt: document.getElementById(`tool_${key}_prompt`).value.trim()
-    };
-  }
-
-  try {
-    await db.collection("config").doc("settings").set({
-      ...(settingsData || {}),
-      brandName: "HerraMax Plus",
-      campaignYear: 2026,
-      tools,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    }, { merge: true });
-
-    settingsData = { ...(settingsData || {}), tools };
-    toast("✓ Herramientas guardadas correctamente");
-  } catch(e) {
-    toast("Error al guardar herramientas: " + e.message, true);
-  }
-
-  btn.disabled = false;
-  btn.textContent = "Guardar herramientas";
-}
-
-function renderMonthEditor() {
-  const m = currentData;
-  const main = document.getElementById("mainArea");
-  const statOpts = ["pendiente","en_progreso","publicado"].map(s =>
-    `<option value="${s}" ${m.status===s?"selected":""}>${s.replace("_"," ")}</option>`).join("");
-
-  main.innerHTML = `
-    <div class="main-header">
-      <div>
-        <div class="main-title">${esc(m.name)} 2026</div>
-        <div class="main-subtitle">${esc(m.theme || "")}</div>
-      </div>
-      <select class="status-select" id="f_status" onchange="currentData.status=this.value">${statOpts}</select>
-      <button class="save-btn" id="saveBtn" onclick="saveMonth()">Guardar cambios</button>
-    </div>
-
-    <div class="field-grid">
-      <div class="field">
-        <div class="field-label">Tema del mes</div>
-        <input class="field-input" id="f_theme" value="${esc(m.theme||'')}">
-      </div>
-
-      <div class="field">
-        <div class="field-label">Prioridad</div>
-        <select class="field-select" id="f_priority">
-          <option value="alta" ${m.priority==="alta"?"selected":""}>Alta</option>
-          <option value="media" ${m.priority==="media"?"selected":""}>Media</option>
-          <option value="baja" ${m.priority==="baja"?"selected":""}>Baja</option>
-        </select>
-      </div>
-
-      <div class="field full">
-        <div class="field-label">Concepto de campaña</div>
-        <textarea class="field-textarea" id="f_concepto">${esc(m.concepto||'')}</textarea>
-      </div>
-
-      <div class="field full">
-        <div class="field-label">Copy sugerido para redes sociales</div>
-        <textarea class="field-textarea" id="f_copia" style="min-height:80px">${esc(m.copia||'')}</textarea>
-      </div>
-
-      <div class="field full">
-        <div class="field-label">Prompt base del mes</div>
-        <textarea class="field-textarea" id="f_prompt" style="min-height:100px" oninput="document.getElementById('promptPreview').textContent=this.value">${esc(m.prompt||'')}</textarea>
-        <div class="prompt-preview" id="promptPreview">${esc(m.prompt||'')}</div>
-      </div>
-
-      <div class="field full">
-        <div class="field-label">URL de imagen generada</div>
-        <input class="field-input" id="f_imagenUrl" value="${esc(m.imagenUrl||'')}" placeholder="https://...">
-      </div>
-
-      <div class="field full">
-        <div class="field-label" style="display:flex;justify-content:space-between;align-items:center">
-          Fechas clave
-          <button class="add-btn" onclick="addFecha()">+ Agregar fecha</button>
-        </div>
-        <div id="fechasEditor">${renderFechas(m.fechas||[])}</div>
-      </div>
-
-      <div class="field full">
-        <div class="field-label" style="display:flex;justify-content:space-between;align-items:center">
-          Trending hooks
-          <button class="add-btn" onclick="addTrending()">+ Agregar hook</button>
-        </div>
-        <div id="trendingEditor">${renderTrending(m.trending||[])}</div>
-      </div>
-
-      <div class="field full">
-        <div class="field-label">Notas internas del equipo</div>
-        <textarea class="field-textarea" id="f_notas" placeholder="Notas, ideas, comentarios...">${esc(m.notas||'')}</textarea>
-      </div>
-    </div>
-  `;
-}
-
-function renderFechas(fechas) {
-  if (!fechas.length) return '<div style="color:var(--t3);font-size:12px;padding:6px 0">Sin fechas. Usa + para agregar.</div>';
-  return fechas.map((f,i) => `
-    <div class="fecha-row">
-      <input class="field-input" placeholder="Ej: 10 May" value="${esc(f.d||'')}" onchange="updateFecha(${i},'d',this.value)">
-      <input class="field-input" placeholder="Etiqueta" value="${esc(f.label||'')}" onchange="updateFecha(${i},'label',this.value)">
-      <select class="chip-select" onchange="updateFecha(${i},'c',this.value)">
-        ${["orange","red","blue","green","gray"].map(c=>`<option value="${c}" ${f.c===c?"selected":""}>${c}</option>`).join("")}
-      </select>
-      <button class="del-btn" onclick="deleteFecha(${i})">✕</button>
-    </div>`).join("");
-}
-function updateFecha(i,key,val){ currentData.fechas[i][key]=val; }
-function deleteFecha(i){ currentData.fechas.splice(i,1); document.getElementById("fechasEditor").innerHTML=renderFechas(currentData.fechas); }
-function addFecha(){ if(!currentData.fechas)currentData.fechas=[]; currentData.fechas.push({d:"",label:"",c:"orange"}); document.getElementById("fechasEditor").innerHTML=renderFechas(currentData.fechas); }
-
-function renderTrending(trending) {
-  if (!trending.length) return '<div style="color:var(--t3);font-size:12px;padding:6px 0">Sin hooks. Usa + para agregar.</div>';
-  return trending.map((t,i) => `
-    <div class="trending-row">
-      <div class="trending-inputs">
-        <input class="field-input" placeholder="Tag" value="${esc(t.tag||'')}" onchange="updateTrending(${i},'tag',this.value)">
-        <input class="field-input" placeholder="Título del hook" value="${esc(t.title||'')}" onchange="updateTrending(${i},'title',this.value)">
-      </div>
-      <div style="display:grid;grid-template-columns:1fr auto;gap:6px;align-items:start">
-        <input class="field-input" placeholder="Descripción" value="${esc(t.desc||'')}" onchange="updateTrending(${i},'desc',this.value)">
-        <button class="del-btn" onclick="deleteTrending(${i})">✕</button>
-      </div>
-    </div>`).join("");
-}
-function updateTrending(i,key,val){ currentData.trending[i][key]=val; }
-function deleteTrending(i){ currentData.trending.splice(i,1); document.getElementById("trendingEditor").innerHTML=renderTrending(currentData.trending); }
-function addTrending(){ if(!currentData.trending)currentData.trending=[]; currentData.trending.push({tag:"",title:"",desc:""}); document.getElementById("trendingEditor").innerHTML=renderTrending(currentData.trending); }
-
-async function saveMonth() {
-  const btn = document.getElementById("saveBtn");
-  btn.disabled = true;
-  btn.textContent = "Guardando...";
-
-  currentData.theme     = document.getElementById("f_theme").value;
-  currentData.priority  = document.getElementById("f_priority").value;
-  currentData.concepto  = document.getElementById("f_concepto").value;
-  currentData.copia     = document.getElementById("f_copia").value;
-  currentData.prompt    = document.getElementById("f_prompt").value;
-  currentData.imagenUrl = document.getElementById("f_imagenUrl").value;
-  currentData.notas     = document.getElementById("f_notas").value;
-  currentData.status    = document.getElementById("f_status").value;
-  currentData.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
-
-  const { id, ...data } = currentData;
-
-  try {
-    await db.collection("herramax_2026").doc(currentId).update(data);
-    const idx = allMonths.findIndex(m => m.id === currentId);
-    if (idx > -1) allMonths[idx] = { ...currentData };
-    renderSidebar();
-    syncSidebarActive();
-    toast("✓ Cambios guardados correctamente");
-  } catch(e) {
-    toast("Error al guardar: " + e.message, true);
-  }
-
-  btn.disabled = false;
-  btn.textContent = "Guardar cambios";
-}
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target)}}),{threshold:0.1});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+loadSite();
 </script>
 </body>
 </html>
